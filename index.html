@@ -1,338 +1,720 @@
 <!DOCTYPE html>
 <html lang="es" id="html-root">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>KOOWEXA - FAX</title>
-<meta name="description" content="Facturación electrónica segura y moderna"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2327ae60'%3E🧾%3C/text%3E%3C/svg%3E"/>
-<style>
-:root{
---bg:#ffffff;
---bg-card:#ffffff;
---bg-alt:#f8f9fa;
---text:#2c3e50;
---text-muted:#7f8c8d;
---primary:#27ae60;
---primary-hover:#219653;
---danger:#e74c3c;
---border:#e0e0e0;
---shadow:0 4px 16px rgba(0,0,0,0.08);
---radius:12px;
---transition:all 0.2s ease;
---font:'Inter',sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;transition:var(--transition);}
-.container{max-width:1000px;margin:0 auto;padding:20px;}
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:30px;}
-header h1{font-size:22px;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:10px;}
-header h1 i{font-size:24px;}
-.stepper{display:flex;counter-reset:step;gap:10px;list-style:none;margin-bottom:30px;flex-wrap:wrap;}
-.stepper li{flex:1;min-width:200px;padding:16px;text-align:center;border-radius:var(--radius);background:var(--bg-alt);color:var(--text-muted);font-weight:500;position:relative;transition:var(--transition)};stpper li::before{counter-increment:step;content:counter(step);display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#bdc3c7;color:white;margin:0 auto 8px auto;font-size:14px;}
-.stepper li.active{background:var(--primary);color:white;font-weight:600;}stpper li.active::before{background:var(--primary-hover);}
-.stepper li.done{background:#3498db;color:white;}stpper li.done::before{background:#2980b9;}
-.card{background:var(--bg-card);padding:24px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:24px;}
-.card h2{font-size:18px;font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--primary);border-bottom:2px solid #e0f7f0;padding-bottom:8px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-label{font-size:14px;font-weight:500;color:var(--text);margin-bottom:6px;display:block;}
-input,select{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:15px;transition:var(--transition);}
-input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(39,174,96,0.1);}
-button{padding:10px 18px;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:6px;}
-button.primary{background:var(--primary);color:white;}button.primary:hover{background:var(--primary-hover);}
-button.secondary{background:#95a5a6;color:white;}button.secondary:hover{background:#7f8c8d;}
-button.danger{background:var(--danger);color:white;}button.danger:hover{background:#c0392b;}
-.btn-group{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;justify-content:flex-end;}
-.step{display:none;animation:fadeIn 0.3s ease;}
-.step.active{display:block;}
-.alert{padding:14px;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:14px;display:none;opacity:0;transition:opacity 0.3s;}
-.alert.show{opacity:1;}
-.alert.success{background:#d4edda;color:#155724;}
-.alert.error{background:#f8d7da;color:#721c24;}
-.alert i{font-size:16px;}
-.resumen-table{width:100%;border-collapse:collapse;margin-top:16px;}
-.resumen-table th{background:#f1f5f9;text-align:left;padding:12px;font-size:14px;color:#6b7280;font-weight:600;}
-.resumen-table td{padding:12px;border-bottom:1px solid var(--border);font-size:14px;}
-.resumen-table tr:last-child td{border-bottom:none;}
-.resumen-table tr:hover{background:#f8f9fa;}
-.actions{display:flex;gap:6px;}
-.actions button{padding:6px 8px;font-size:12px;}
-.facturas-section{margin-top:30px;}
-.facturas-section h2{font-size:18px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:var(--primary);}
-.empty-state{text-align:center;padding:40px;color:#6b7280;font-size:14px;}
-.empty-state i{font-size:40px;margin-bottom:10px;color:#b0bec5;}
-@media(max-width:600px){
-.container{padding:12px;}
-header h1{font-size:20px;}
-.stepper{gap:8px;}
-.stepper li{min-width:auto;font-size:14px;padding:12px;}
-.card{padding:18px;}
-.btn-group{justify-content:center;}
-}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>KOOWEXA - FAX</title>
+  <meta name="description" content="Facturación electrónica moderna y segura"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2327ae60'%3E🧾%3C/text%3E%3C/svg%3E"/>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #ffffff;
+      --bg-alt: #f8f9fa;
+      --text: #2c3e50;
+      --text-muted: #7f8c8d;
+      --primary: #27ae60;
+      --primary-hover: #219653;
+      --danger: #e74c3c;
+      --border: #e0e0e0;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --transition: all 0.2s ease;
+      --font: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header h1 i {
+      font-size: 24px;
+    }
+
+    .stepper {
+      display: flex;
+      counter-reset: step;
+      gap: 10px;
+      list-style: none;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stepper li {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px;
+      text-align: center;
+      border-radius: var(--radius);
+      background: var(--bg-alt);
+      color: var(--text-muted);
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .stepper li::before {
+      counter-increment: step;
+      content: counter(step);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #bdc3c7;
+      color: white;
+      margin: 0 auto 8px;
+      font-size: 14px;
+    }
+
+    .stepper li.active {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+
+    .stepper li.active::before {
+      background: var(--primary-hover);
+    }
+
+    .stepper li.done {
+      background: #3498db;
+      color: white;
+    }
+
+    .stepper li.done::before {
+      background: #2980b9;
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      border-bottom: 2px solid #e0f7f0;
+      padding-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    button.primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #95a5a6;
+      color: white;
+    }
+
+    button.secondary:hover {
+      background: #7f8c8d;
+    }
+
+    button.danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    button.danger:hover {
+      background: #c0392b;
+      transform: scale(0.98);
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+
+    .step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .alert {
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .alert.show {
+      opacity: 1;
+    }
+
+    .alert.success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .alert.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .alert i {
+      font-size: 16px;
+    }
+
+    .resumen-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    .resumen-table th {
+      background: #f1f5f9;
+      text-align: left;
+      padding: 12px;
+      font-size: 14px;
+      color: #6b7280;
+      font-weight: 600;
+    }
+
+    .resumen-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .resumen-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .resumen-table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .actions button {
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    .facturas-section {
+      margin-top: 30px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .empty-state i {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #b0bec5;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 12px; }
+      header h1 { font-size: 20px; }
+      .stepper { gap: 8px; }
+      .stepper li { min-width: auto; font-size: 14px; padding: 12px; }
+      .card { padding: 18px; }
+      .btn-group { justify-content: center; }
+      input, select { font-size: 16px; } /* Mejora mobile UX */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<header>
-<h1><i class="fas fa-receipt"></i> KOOWEXA - FAX</h1>
-</header>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-receipt"></i> KOOWEXA - FAX</h1>
+    </header>
 
-<ul class="stepper">
-<li id="step1Label" class="active">Empresa</li>
-<li id="step2Label">Cliente</li>
-<li id="step3Label">Confirmar</li>
-</ul>
+    <ul class="stepper">
+      <li id="step1Label" class="active">Empresa</li>
+      <li id="step2Label">Cliente</li>
+      <li id="step3Label">Confirmar</li>
+    </ul>
 
-<div id="alert" class="alert" role="alert" aria-live="polite"></div>
+    <div id="alert" class="alert" role="alert" aria-live="polite"></div>
 
-<!-- FASE 1: EMPRESA -->
-<div id="step1" class="step active">
-<div class="card">
-<h2><i class="fas fa-building"></i> Información de la Empresa</h2>
-<div class="grid">
-<div><label>ID de Empresa</label><input type="text" id="empresaId" readonly/></div>
-<div><label>Nombre</label><input type="text" value="KOOWEXA" readonly/></div>
-<div><label>Monto Base (CUP)</label><input type="text" id="montoBase" value="2000" readonly/></div>
-<div><label>Aplicar Descuento 10%</label><select id="aplicarDescuento"><option value="no">No</option><option value="si">Sí</option></select></div>
-<div><label>Monto Final (CUP)</label><input type="text" id="montoFinal" readonly/></div>
-<div><label>Tiempo de Expiración</label><input type="text" value="3 meses" readonly/></div>
-<div><label>Servicio de Pago</label><select id="servicioPago"><option value="Sí">Sí</option><option value="No">No</option></select></div>
-<div><label>Número de Factura</label><input type="text" id="numFactura" readonly placeholder="Auto-generado"/></div>
-<div><label>Firma Única</label><input type="text" id="firmaUnica" readonly/></div>
-</div>
-</div>
-<div class="btn-group"><button onclick="KoowexaFactura.siguiente()" class="primary"><i class="fas fa-arrow-right"></i> Siguiente</button></div>
-</div>
+    <!-- FASE 1 -->
+    <div id="step1" class="step active">
+      <div class="card">
+        <h2><i class="fas fa-building"></i> Información de la Empresa</h2>
+        <div class="grid">
+          <div>
+            <label>Monto Base (CUP)</label>
+            <input type="number" id="montoBase" value="2000" step="0.01" min="1" required/>
+          </div>
+          <div>
+            <label>Aplicar Descuento 10%</label>
+            <select id="aplicarDescuento">
+              <option value="no">No</option>
+              <option value="si">Sí</option>
+            </select>
+          </div>
+          <div>
+            <label>Monto Final (CUP)</label>
+            <input type="text" id="montoFinal" readonly/>
+          </div>
+          <div>
+            <label>Tiempo de Expiración (meses)</label>
+            <input type="number" id="mesesExpiracion" value="3" min="1" max="36" required/>
+          </div>
+          <div>
+            <label>Número de Factura</label>
+            <input type="text" id="numFactura" readonly placeholder="Auto-generado"/>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button onclick="KoowexaFactura.siguiente()" class="primary">
+          <i class="fas fa-arrow-right"></i> Siguiente
+        </button>
+      </div>
+    </div>
 
-<!-- FASE 2: CLIENTE -->
-<div id="step2" class="step">
-<div class="card">
-<h2><i class="fas fa-user"></i> Datos del Cliente</h2>
-<div class="grid">
-<div><label for="clienteNombre">Nombre *</label><input type="text" id="clienteNombre" placeholder="Nombre completo" required autocomplete="name"/></div>
-<div><label for="clienteTelefono">Teléfono *</label><input type="tel" id="clienteTelefono" placeholder="+591 77778888" required autocomplete="tel"/></div>
-<div><label for="clienteGmail">Correo *</label><input type="email" id="clienteGmail" placeholder="ejemplo@gmail.com" required autocomplete="email"/></div>
-<div><label for="clienteUbicacion">Ubicación</label><input type="text" id="clienteUbicacion" placeholder="Ciudad, País" autocomplete="street-address"/></div>
-<div><label for="clienteFecha">Fecha de Emisión</label><input type="text" id="clienteFecha" readonly/></div>
-<div><label for="clienteVencimiento">Fecha de Vencimiento</label><input type="text" id="clienteVencimiento" readonly/></div>
-</div>
-</div>
-<div class="btn-group">
-<button onclick="KoowexaFactura.anterior()" class="secondary"><i class="fas fa-arrow-left"></i> Anterior</button>
-<button onclick="KoowexaFactura.siguiente()" class="primary">Siguiente <i class="fas fa-arrow-right"></i></button>
-</div>
-</div>
+    <!-- FASE 2 -->
+    <div id="step2" class="step">
+      <div class="card">
+        <h2><i class="fas fa-user"></i> Datos del Cliente</h2>
+        <div class="grid">
+          <div>
+            <label for="clienteNombre">Nombre *</label>
+            <input type="text" id="clienteNombre" placeholder="Nombre completo" required autocomplete="name"/>
+          </div>
+          <div>
+            <label for="clienteTelefono">Teléfono *</label>
+            <input type="tel" id="clienteTelefono" placeholder="+591 77778888" required autocomplete="tel"/>
+          </div>
+          <div>
+            <label for="clienteGmail">Correo *</label>
+            <input type="email" id="clienteGmail" placeholder="ejemplo@gmail.com" required autocomplete="email"/>
+          </div>
+          <div>
+            <label for="clienteUbicacion">Ubicación</label>
+            <input type="text" id="clienteUbicacion" placeholder="Ciudad, País" autocomplete="address-level2"/>
+          </div>
+          <div>
+            <label for="clienteFecha">Emisión</label>
+            <input type="text" id="clienteFecha" readonly/>
+          </div>
+          <div>
+            <label for="clienteVencimiento">Vencimiento</label>
+            <input type="text" id="clienteVencimiento" readonly/>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button onclick="KoowexaFactura.anterior()" class="secondary">
+          <i class="fas fa-arrow-left"></i> Anterior
+        </button>
+        <button onclick="KoowexaFactura.siguiente()" class="primary">
+          Siguiente <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
 
-<!-- FASE 3: CONFIRMACIÓN -->
-<div id="step3" class="step">
-<div class="card">
-<h2><i class="fas fa-check-circle"></i> Revisa y Envía</h2>
-<p>Confirma los datos antes de enviar la factura electrónica.</p>
-<table class="resumen-table" id="resumenFactura"></table>
-</div>
-<div class="btn-group">
-<button onclick="KoowexaFactura.anterior()" class="secondary"><i class="fas fa-arrow-left"></i> Anterior</button>
-<button onclick="KoowexaFactura.enviarFacturaCompleta()" class="primary"><i class="fas fa-paper-plane"></i> Enviar Factura</button>
-</div>
-</div>
+    <!-- FASE 3 -->
+    <div id="step3" class="step">
+      <div class="card">
+        <h2><i class="fas fa-check-circle"></i> Revisa y Envía</h2>
+        <p>Confirma los datos antes de enviar la factura electrónica.</p>
+        <table class="resumen-table" id="resumenFactura"></table>
+      </div>
+      <div class="btn-group">
+        <button onclick="KoowexaFactura.anterior()" class="secondary">
+          <i class="fas fa-arrow-left"></i> Anterior
+        </button>
+        <button onclick="KoowexaFactura.enviarFacturaCompleta()" class="primary">
+          <i class="fas fa-paper-plane"></i> Enviar Factura
+        </button>
+      </div>
+    </div>
 
-<!-- HISTORIAL DE FACTURAS -->
-<div class="card facturas-section">
-<h2><i class="fas fa-history"></i> Facturas Enviadas</h2>
-<div id="facturasEnviadas"></div>
-</div>
-</div>
+    <!-- HISTORIAL -->
+    <div class="card facturas-section">
+      <h2><i class="fas fa-history"></i> Facturas Enviadas</h2>
+      <div id="facturasEnviadas"></div>
+    </div>
+  </div>
 
-<script>
-const KoowexaFactura=(function(){
-const steps=["step1","step2","step3"];
-let currentStep=0;
-const alertBox=document.getElementById("alert");
-const descuentoSelect=document.getElementById("aplicarDescuento");
-const montoBaseInput=document.getElementById("montoBase");
-const montoFinalInput=document.getElementById("montoFinal");
-let firmaGenerada=null;
-let facturasEnviadas=[];
-const STORAGE_KEY="koowexa_facturas_v2";
+  <script>
+    const KoowexaFactura = (() => {
+      // === DOM Elements ===
+      const $ = (sel) => document.querySelector(sel);
+      const $$ = (sel) => document.querySelectorAll(sel);
 
-function generarId(){return Math.floor(Math.random()*9000+1000);}
-function generarNumFactura(){
-const f=new Date();
-const d=f.getDate().toString().padStart(2,'0');
-const m=(f.getMonth()+1).toString().padStart(2,'0');
-const a=f.getFullYear().toString().slice(-2);
-const r=Math.floor(Math.random()*900+100);
-return`KWX-${a}${m}${d}-${r}`;
-}
-function generarFirmaUnica(){
-if(firmaGenerada)return firmaGenerada;
-const chars='0123456789abcdef';
-return Array.from({length:32},()=>chars[Math.floor(Math.random()*16)]).join('');
-}
-function formatearFecha(f){
-return f.toLocaleDateString('es-ES',{year:'numeric',month:'long',day:'numeric'});
-}
-function calcularVencimiento(){
-const h=new Date();
-h.setMonth(h.getMonth()+3);
-return h;
-}
-function validarCorreo(email){
-return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-}
-function validarTelefono(tel){
-return /^(\+\d{1,3}\s?)?\d{7,}$/.test(tel.trim());
-}
-function mostrarAlerta(mensaje,tipo="error"){
-alertBox.textContent=mensaje;
-alertBox.className="alert "+(tipo==="success"?"success":"error");
-alertBox.classList.add("show");
-setTimeout(()=>{alertBox.classList.remove("show");},5000);
-}
-function actualizarMontoFinal(){
-const base=parseFloat(montoBaseInput.value)||0;
-const descuento=descuentoSelect.value==="si";
-const final=descuento?base*0.9:base;
-montoFinalInput.value=`${final.toFixed(2)} CUP`;
-}
-function siguiente(){
-if(currentStep===1&&!validarCliente())return;
-currentStep++;
-actualizarVistas();
-}
-function anterior(){
-currentStep--;
-actualizarVistas();
-}
-function actualizarVistas(){
-steps.forEach((id,i)=>{
-const el=document.getElementById(id);
-const label=document.getElementById(id+"Label");
-el.classList.remove("active");
-label.classList.remove("active","done");
-if(i<currentStep)label.classList.add("done");
-else if(i===currentStep)label.classList.add("active");
-});
-const activeEl=document.getElementById(steps[currentStep]);
-if(activeEl){
-activeEl.classList.add("active");
-if(currentStep===2)resumenFactura();
-}
-}
-function validarCliente(){
-const nombre=document.getElementById("clienteNombre").value.trim();
-const tel=document.getElementById("clienteTelefono").value.trim();
-const email=document.getElementById("clienteGmail").value.trim();
-if(!nombre||!tel||!email){
-mostrarAlerta("⚠️ Completa todos los campos obligatorios.");
-return false;
-}
-if(!validarCorreo(email)){
-mostrarAlerta("⚠️ Correo electrónico no válido.");
-return false;
-}
-if(!validarTelefono(tel)){
-mostrarAlerta("⚠️ Teléfono no válido (ej: +591 77778888).");
-return false;
-}
-return true;
-}
-function inicializarFormulario(){
-document.getElementById("empresaId").value=generarId();
-document.getElementById("numFactura").value=generarNumFactura();
-document.getElementById("firmaUnica").value=generarFirmaUnica();
-const hoy=new Date();
-document.getElementById("clienteFecha").value=formatearFecha(hoy);
-document.getElementById("clienteVencimiento").value=formatearFecha(calcularVencimiento());
-actualizarMontoFinal();
-cargarFacturasEnviadas();
-}
-function cargarFacturasEnviadas(){
-const saved=localStorage.getItem(STORAGE_KEY);
-if(saved){
-try{
-facturasEnviadas=JSON.parse(saved);
-renderizarFacturas();
-}catch(e){
-facturasEnviadas=[];
-}
-}
-}
-function renderizarFacturas(){
-const cont=document.getElementById("facturasEnviadas");
-if(facturasEnviadas.length===0){
-cont.innerHTML=`<div class="empty-state"><i class="fas fa-inbox"></i><p>Ninguna factura enviada aún.</p></div>`;
-return;
-}
-const table=document.createElement("table");
-table.className="resumen-table";
-table.innerHTML=`
-<tr>
-<th>Factura</th>
-<th>Cliente</th>
-<th>Correo</th>
-<th>Vencimiento</th>
-<th>Acciones</th>
-</tr>`+facturasEnviadas.map((f,i)=>`
-<tr>
-<td><strong>${f.numFactura}</strong></td>
-<td>${f.nombre}</td>
-<td>${f.gmail}</td>
-<td>${f.vencimiento}</td>
-<td class="actions">
-<button onclick="KoowexaFactura.notificarVencimiento(${i})" title="Notificar vencimiento" class="primary"><i class="fas fa-bell"></i></button>
-<button onclick="KoowexaFactura.eliminarFactura(${i})" title="Eliminar" class="danger"><i class="fas fa-trash"></i></button>
-</td>
-</tr>`).join('');
-cont.innerHTML="";
-cont.appendChild(table);
-}
-function guardarFacturaEnviada(datos){
-facturasEnviadas.push({...datos,timestamp:new Date().toISOString()});
-localStorage.setItem(STORAGE_KEY,JSON.stringify(facturasEnviadas));
-renderizarFacturas();
-}
-function eliminarFactura(index){
-facturasEnviadas.splice(index,1);
-localStorage.setItem(STORAGE_KEY,JSON.stringify(facturasEnviadas));
-renderizarFacturas();
-mostrarAlerta("🗑️ Factura eliminada del historial.","success");
-}
-function enviarFacturaCompleta(){
-const nombre=document.getElementById("clienteNombre").value.trim();
-const telefono=document.getElementById("clienteTelefono").value.trim();
-const gmail=document.getElementById("clienteGmail").value.trim();
-const ubicacion=document.getElementById("clienteUbicacion").value.trim()||"No especificada";
-if(!validarCliente())return;
-const datos={
-empresaId:document.getElementById("empresaId").value,
-numFactura:document.getElementById("numFactura").value,
-montoBase:montoBaseInput.value,
-montoFinal:montoFinalInput.value,
-descuento:descuentoSelect.value==="si"?"10%":"0%",
-servicioPago:document.getElementById("servicioPago").value,
-firma:document.getElementById("firmaUnica").value,
-nombre,telefono,gmail,ubicacion,
-fecha:document.getElementById("clienteFecha").value,
-vencimiento:document.getElementById("clienteVencimiento").value
-};
-const bodyText=`
-Hola ${nombre},
+      const steps = ['step1', 'step2', 'step3'];
+      let currentStep = 0;
+
+      const alertBox = $('#alert');
+      const montoBase = $('#montoBase');
+      const aplicarDescuento = $('#aplicarDescuento');
+      const montoFinal = $('#montoFinal');
+      const mesesExpiracion = $('#mesesExpiracion');
+      const numFactura = $('#numFactura');
+      const fechaEmision = $('#clienteFecha');
+      const fechaVencimiento = $('#clienteVencimiento');
+
+      const STORAGE_KEY = 'koowexa_facturas_v3';
+      let facturasEnviadas = [];
+
+      // === Utilities ===
+      const formatearFecha = (date) => {
+        return new Intl.DateTimeFormat('es-ES', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }).format(date);
+      };
+
+      const generarNumFactura = () => {
+        const d = String(new Date().getDate()).padStart(2, '0');
+        const m = String(new Date().getMonth() + 1).padStart(2, '0');
+        const a = new Date().getFullYear().toString().slice(-2);
+        const r = Math.floor(Math.random() * 900 + 100);
+        return `KWX-${a}${m}${d}-${r}`;
+      };
+
+      const calcularVencimiento = (meses) => {
+        const hoy = new Date();
+        hoy.setMonth(hoy.getMonth() + meses);
+        return hoy;
+      };
+
+      const validarEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email.trim());
+      };
+
+      const validarTelefono = (tel) => {
+        const re = /^(\+\d{1,3}\s?)?\d{7,}$/;
+        return re.test(tel.trim());
+      };
+
+      const sugerirDominio = (email) => {
+        const dominios = ['gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com'];
+        const base = email.split('@')[0];
+        if (email.includes('@')) return email;
+        return dominios.map(d => `${base}@${d}`);
+      };
+
+      // === UI Feedback ===
+      const mostrarAlerta = (mensaje, tipo = 'error') => {
+        alertBox.textContent = mensaje;
+        alertBox.className = `alert ${tipo}`;
+        alertBox.classList.add('show');
+        setTimeout(() => alertBox.classList.remove('show'), 5000);
+      };
+
+      const actualizarMontoFinal = () => {
+        const base = parseFloat(montoBase.value) || 0;
+        const descuento = aplicarDescuento.value === 'si' ? 0.1 : 0;
+        const final = base * (1 - descuento);
+        montoFinal.value = new Intl.NumberFormat('es-CU', {
+          style: 'currency',
+          currency: 'CUP'
+        }).format(final);
+      };
+
+      const actualizarFechas = () => {
+        const meses = parseInt(mesesExpiracion.value) || 3;
+        const hoy = new Date();
+        const venc = calcularVencimiento(meses);
+        fechaEmision.value = formatearFecha(hoy);
+        fechaVencimiento.value = formatearFecha(venc);
+      };
+
+      // === Navegación entre pasos ===
+      const siguiente = () => {
+        if (currentStep === 1 && !validarCliente()) return;
+        currentStep++;
+        actualizarVistas();
+      };
+
+      const anterior = () => {
+        currentStep--;
+        actualizarVistas();
+      };
+
+      const actualizarVistas = () => {
+        steps.forEach((id, i) => {
+          const el = $(`#${id}`);
+          const label = $(`#${id}Label`);
+          el.classList.toggle('active', i === currentStep);
+          label.classList.toggle('active', i === currentStep);
+          label.classList.toggle('done', i < currentStep);
+        });
+        if (currentStep === 2) resumenFactura();
+      };
+
+      // === Validación cliente ===
+      const validarCliente = () => {
+        const nombre = $('#clienteNombre').value.trim();
+        const tel = $('#clienteTelefono').value.trim();
+        const email = $('#clienteGmail').value.trim();
+
+        if (!nombre) {
+          mostrarAlerta('⚠️ Nombre es obligatorio.');
+          return false;
+        }
+
+        if (!tel || !validarTelefono(tel)) {
+          mostrarAlerta('⚠️ Teléfono no válido (ej: +591 77778888).');
+          return false;
+        }
+
+        if (!email || !validarEmail(email)) {
+          mostrarAlerta('⚠️ Correo no válido.');
+          return false;
+        }
+
+        return true;
+      };
+
+      // === Inicialización ===
+      const inicializarFormulario = () => {
+        numFactura.value = generarNumFactura();
+        actualizarMontoFinal();
+        actualizarFechas();
+        cargarFacturasEnviadas();
+      };
+
+      const cargarFacturasEnviadas = () => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          try {
+            facturasEnviadas = JSON.parse(saved);
+            renderizarFacturas();
+          } catch (e) {
+            console.warn('Error al cargar facturas:', e);
+            facturasEnviadas = [];
+          }
+        }
+      };
+
+      const renderizarFacturas = () => {
+        const cont = $('#facturasEnviadas');
+        if (facturasEnviadas.length === 0) {
+          cont.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-file-invoice-dollar"></i>
+              <p>No hay facturas enviadas aún.</p>
+            </div>`;
+          return;
+        }
+
+        const tablaHTML = `
+          <table class="resumen-table">
+            <thead>
+              <tr>
+                <th>Factura</th>
+                <th>Cliente</th>
+                <th>Correo</th>
+                <th>Vence</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${facturasEnviadas.map((f, i) => `
+                <tr>
+                  <td><strong>${f.numFactura}</strong></td>
+                  <td>${f.nombre}</td>
+                  <td>${f.gmail}</td>
+                  <td>${f.vencimiento}</td>
+                  <td class="actions">
+                    <button data-action="notify" data-index="${i}" title="Notificar"><i class="fas fa-bell"></i></button>
+                    <button data-action="delete" data-index="${i}" title="Eliminar" class="danger"><i class="fas fa-trash"></i></button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+
+        cont.innerHTML = tablaHTML;
+
+        // Delegación de eventos
+        cont.addEventListener('click', (e) => {
+          const btn = e.target.closest('button');
+          if (!btn) return;
+          const action = btn.dataset.action;
+          const index = parseInt(btn.dataset.index);
+          if (action === 'delete') eliminarFactura(index);
+          if (action === 'notify') notificarVencimiento(index);
+        });
+      };
+
+      const guardarFacturaEnviada = (datos) => {
+        facturasEnviadas.push({ ...datos, timestamp: new Date().toISOString() });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(facturasEnviadas));
+        renderizarFacturas();
+      };
+
+      const eliminarFactura = (index) => {
+        facturasEnviadas.splice(index, 1);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(facturasEnviadas));
+        renderizarFacturas();
+        mostrarAlerta('🗑️ Factura eliminada.', 'success');
+      };
+
+      const resumenFactura = () => {
+        const nombre = $('#clienteNombre').value;
+        const gmail = $('#clienteGmail').value;
+        const telefono = $('#clienteTelefono').value;
+        const ubicacion = $('#clienteUbicacion').value || 'No especificada';
+
+        $('#resumenFactura').innerHTML = `
+          <tr><td><strong>Factura</strong></td><td>${numFactura.value}</td></tr>
+          <tr><td><strong>Cliente</strong></td><td>${nombre}</td></tr>
+          <tr><td><strong>Correo</strong></td><td>${gmail}</td></tr>
+          <tr><td><strong>Teléfono</strong></td><td>${telefono}</td></tr>
+          <tr><td><strong>Ubicación</strong></td><td>${ubicacion}</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong style="color:#27ae60;">${montoFinal.value}</strong></td></tr>
+          <tr><td><strong>Vence</strong></td><td>${fechaVencimiento.value}</td></tr>
+        `;
+      };
+
+      const enviarFacturaCompleta = () => {
+        if (!validarCliente()) return;
+
+        const datos = {
+          numFactura: numFactura.value,
+          montoBase: montoBase.value,
+          montoFinal: montoFinal.value,
+          descuento: aplicarDescuento.value === 'si' ? '10%' : '0%',
+          nombre: $('#clienteNombre').value.trim(),
+          telefono: $('#clienteTelefono').value.trim(),
+          gmail: $('#clienteGmail').value.trim(),
+          ubicacion: $('#clienteUbicacion').value.trim() || 'No especificada',
+          fecha: fechaEmision.value,
+          vencimiento: fechaVencimiento.value
+        };
+
+        const cuerpo = `
+Hola ${datos.nombre},
 
 🧾 **FACTURA ELECTRÓNICA - KOOWEXA**
 ------------------------------
 🔹 Número: ${datos.numFactura}
-🔹 ID Empresa: ${datos.empresaId}
 🔹 Fecha Emisión: ${datos.fecha}
-🔹 Vencimiento: ${datos.vencimiento}
+🔹 Vence: ${datos.vencimiento}
 🔹 Monto Base: ${datos.montoBase} CUP
-🔹 Descuento Aplicado: ${datos.descuento}
-🔹 Monto Final: ${datos.montoFinal}
-🔹 Servicio de Pago: ${datos.servicioPago}
-🔹 Firma Única: ${datos.firma}
+🔹 Descuento: ${datos.descuento}
+🔹 Total: ${datos.montoFinal}
 
 👤 **CLIENTE**
 ------------------------------
@@ -341,83 +723,89 @@ Hola ${nombre},
 🔹 Correo: ${datos.gmail}
 🔹 Ubicación: ${datos.ubicacion}
 
-✅ Esta factura incluye una firma única para validación.
 Gracias por confiar en KOOWEXA.
+¡Saludos!
 
-Saludos,
 Equipo KOOWEXA
-`.trim();
-const subject=encodeURIComponent("Tu factura de KOOWEXA");
-const body=encodeURIComponent(bodyText);
-const mailto=`mailto:${encodeURIComponent(datos.gmail)}?subject=${subject}&body=${body}`;
-window.open(mailto,"_blank");
-guardarFacturaEnviada(datos);
-mostrarAlerta("✅ Factura enviada y guardada con éxito.","success");
-setTimeout(()=>{limpiarFormulario();actualizarVistas();},1000);
-}
-function resumenFactura(){
-const table=document.getElementById("resumenFactura");
-const nombre=document.getElementById("clienteNombre").value;
-const telefono=document.getElementById("clienteTelefono").value;
-const gmail=document.getElementById("clienteGmail").value;
-const ubicacion=document.getElementById("clienteUbicacion").value||"No especificada";
-table.innerHTML=`
-<tr><td><strong>Factura</strong></td><td>${document.getElementById("numFactura").value}</td></tr>
-<tr><td><strong>Cliente</strong></td><td>${nombre}</td></tr>
-<tr><td><strong>Correo</strong></td><td>${gmail}</td></tr>
-<tr><td><strong>Teléfono</strong></td><td>${telefono}</td></tr>
-<tr><td><strong>Ubicación</strong></td><td>${ubicacion}</td></tr>
-<tr><td><strong>Monto Final</strong></td><td><strong style="color:#27ae60;">${document.getElementById("montoFinal").value}</strong></td></tr>
-<tr><td><strong>Vencimiento</strong></td><td>${document.getElementById("clienteVencimiento").value}</td></tr>`;
-}
-function limpiarFormulario(){
-document.querySelectorAll("input[type=text],input[type=email],input[type=tel]").forEach(inp=>{
-if(!inp.hasAttribute("readonly"))inp.value="";
-});
-descuentoSelect.value="no";
-document.getElementById("servicioPago").value="Sí";
-firmaGenerada=null;
-inicializarFormulario();
-}
-function notificarVencimiento(index){
-const factura=facturasEnviadas[index];
-if(!("Notification"in window)){
-mostrarAlerta("🔔 Navegador no soporta notificaciones.");
-return;
-}
-if(Notification.permission==="granted"){
-enviarNotificacion(factura);
-}else if(Notification.permission!=="denied"){
-Notification.requestPermission().then(perm=>{
-if(perm==="granted")enviarNotificacion(factura);
-});
-}
-}
-function enviarNotificacion(factura){
-const venc=new Date(factura.vencimiento);
-const now=new Date();
-const diff=venc-now;
-if(diff<=0){
-new Notification("Factura vencida",{
-body:`La factura ${factura.numFactura} de ${factura.nombre} ha vencido.`,
-icon:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23e74c3c'%3E🧾%3C/text%3E%3C/svg%3E"
-});
-}else{
-setTimeout(()=>{
-new Notification("Factura por vencer",{
-body:`La factura ${factura.numFactura} de ${factura.nombre} vence hoy.`,
-icon:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2327ae60'%3E🧾%3C/text%3E%3C/svg%3E"
-});
-},diff);
-}
-}
-descuentoSelect.addEventListener("change",actualizarMontoFinal);
-document.addEventListener("DOMContentLoaded",()=>{
-inicializarFormulario();
-actualizarVistas();
-});
-return{siguiente,anterior,enviarFacturaCompleta,eliminarFactura,notificarVencimiento,mostrarAlerta,limpiarFormulario};
-})();
-</script>
+        `.trim();
+
+        const subject = encodeURIComponent(`Factura KOOWEXA - ${datos.numFactura}`);
+        const body = encodeURIComponent(cuerpo);
+        const mailto = `mailto:${encodeURIComponent(datos.gmail)}?subject=${subject}&body=${body}`;
+
+        window.open(mailto, '_blank', 'noopener,noreferrer');
+        guardarFacturaEnviada(datos);
+        mostrarAlerta('✅ Factura enviada y guardada.', 'success');
+
+        setTimeout(() => {
+          limpiarFormulario();
+          actualizarVistas();
+        }, 1000);
+      };
+
+      const limpiarFormulario = () => {
+        montoBase.value = '2000';
+        mesesExpiracion.value = '3';
+        aplicarDescuento.value = 'no';
+        $('#clienteNombre').value = '';
+        $('#clienteTelefono').value = '';
+        $('#clienteGmail').value = '';
+        $('#clienteUbicacion').value = '';
+        inicializarFormulario();
+      };
+
+      const notificarVencimiento = (index) => {
+        const factura = facturasEnviadas[index];
+        if (!("Notification" in window)) {
+          mostrarAlerta("🔔 Notificaciones no soportadas.");
+          return;
+        }
+
+        Notification.requestPermission().then(perm => {
+          if (perm === 'granted') {
+            const venc = new Date(factura.vencimiento);
+            const ahora = new Date();
+            if (venc <= ahora) {
+              new Notification("Vencida", { body: `La factura ${factura.numFactura} ha vencido.` });
+            } else {
+              const diff = venc - ahora;
+              setTimeout(() => {
+                new Notification("Próximo vencimiento", { body: `La factura ${factura.numFactura} vence hoy.` });
+              }, diff);
+            }
+          }
+        });
+      };
+
+      // === Event Listeners ===
+      montoBase.addEventListener('input', actualizarMontoFinal);
+      aplicarDescuento.addEventListener('change', actualizarMontoFinal);
+      mesesExpiracion.addEventListener('input', actualizarFechas);
+
+      // Focus feedback para correos
+      $('#clienteGmail').addEventListener('blur', function () {
+        if (this.value && !this.value.includes('@')) {
+          const sugerencias = sugerirDominio(this.value);
+          console.info('¿Quizás quisiste?:', sugerencias[0]);
+        }
+      });
+
+      // Init
+      document.addEventListener('DOMContentLoaded', () => {
+        inicializarFormulario();
+        actualizarVistas();
+      });
+
+      return {
+        siguiente,
+        anterior,
+        enviarFacturaCompleta,
+        eliminarFactura,
+        notificarVencimiento,
+        mostrarAlerta,
+        limpiarFormulario
+      };
+    })();
+  </script>
 </body>
 </html>

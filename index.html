@@ -1,164 +1,761 @@
 <!DOCTYPE html>
-<html lang="es" id="html-root">
+<html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>KOOFAX</title>
-  <meta name="description" content="Sistema de facturación electrónica moderna, segura y eficiente"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2327ae60'%3E🧾%3C/text%3E%3C/svg%3E"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura Inteligente - KOOWEXA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: #f8fafc;
+            padding: 16px;
+            line-height: 1.4;
+            color: #334155;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .factura {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #3b82f6;
+            margin-bottom: 24px;
+        }
+        
+        .seccion {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .titulo {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .fila {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        
+        .etiqueta {
+            font-weight: 500;
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        .campo {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .campo:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .campo.importe {
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .detalles {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .item {
+            display: grid;
+            grid-template-columns: 1fr 100px 60px 40px;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        
+        .campo-descripcion {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .campo-cantidad, .campo-precio {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .subtotal {
+            font-weight: 500;
+            color: #1e293b;
+            text-align: right;
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        .btn-eliminar {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-agregar {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .resumen {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        
+        .fila-resumen {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .total {
+            font-size: 20px;
+            font-weight: 600;
+            border-top: 1px solid #475569;
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+        
+        .botones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .btn {
+            padding: 14px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-primario {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-secundario {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .estado {
+            text-align: center;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #64748b;
+            min-height: 20px;
+        }
+        
+        .sugerencias {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #0369a1;
+        }
+        
+        @media (max-width: 640px) {
+            .item {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            
+            .botones {
+                grid-template-columns: 1fr;
+            }
+            
+            .fila {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">
-          <i class="fas fa-receipt"></i>
-        </div>
-        <div class="brand-text">
-          <h1>KOOWEXA</h1>
-          <p class="tagline">Facturación Electrónica Premium</p>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button class="btn-icon" id="themeToggle" title="Cambiar tema">
-          <i class="fas fa-moon"></i>
-        </button>
-      </div>
-    </header>
-
-    <div class="stepper-container">
-      <ul class="stepper">
-        <li id="step1Label" class="active">
-          <div class="step-icon">
-            <i class="fas fa-building"></i>
-          </div>
-          <span>Empresa</span>
-        </li>
-        <li id="step2Label">
-          <div class="step-icon">
-            <i class="fas fa-user"></i>
-          </div>
-          <span>Cliente</span>
-        </li>
-        <li id="step3Label">
-          <div class="step-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <span>Confirmar</span>
-        </li>
-      </ul>
-    </div>
-
-    <div id="alert" class="alert" role="alert" aria-live="polite"></div>
-
-    <div id="step1" class="step active">
-      <div class="card">
-        <div class="card-header">
-          <h2><i class="fas fa-building"></i> Información de la Empresa</h2>
-          <p class="card-description">Configura los detalles de la factura</p>
-        </div>
-        <div class="grid">
-          <div class="form-group">
-            <label for="montoBase">Monto Base (CUP)</label>
-            <input type="number" id="montoBase" value="2000" step="0.01" min="1" required/>
-            <p class="field-hint">Ingrese el monto base de la factura</p>
-          </div>
-          <div class="form-group">
-            <label for="aplicarDescuento">Aplicar Descuento 10%</label>
-            <select id="aplicarDescuento">
-              <option value="no">No</option>
-              <option value="si">Sí</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="montoFinal">Monto Final (CUP)</label>
-            <input type="text" id="montoFinal" readonly class="result-field"/>
-          </div>
-          <div class="form-group">
-            <label for="mesesExpiracion">Tiempo de Expiración (meses)</label>
-            <input type="number" id="mesesExpiracion" value="3" min="1" max="36" required/>
-            <p class="field-hint">Entre 1 y 36 meses</p>
-          </div>
-          <div class="form-group">
-            <label for="numFactura">Número de Factura</label>
-            <input type="text" id="numFactura" readonly placeholder="Auto-generado" class="result-field"/>
-          </div>
-        </div>
-      </div>
-      <div class="btn-group">
-        <button onclick="KoowexaFactura.siguiente()" class="btn btn-primary">
-          <i class="fas fa-arrow-right"></i> Siguiente
-        </button>
-      </div>
-    </div>
-
-    <div id="step2" class="step">
-      <div class="card">
-        <div class="card-header">
-          <h2><i class="fas fa-user"></i> Datos del Cliente</h2>
-          <p class="card-description">Información del destinatario</p>
-        </div>
-        <div class="grid">
-          <div class="form-group">
-            <label for="clienteGmail">Correo Electrónico *</label>
-            <div class="input-with-suggestions">
-              <input type="email" id="clienteGmail" placeholder="ejemplo@gmail.com" required autocomplete="email"/>
-              <div id="sugerenciasCorreo" class="suggestions" style="display: none;"></div>
+    <div class="container">
+        <div class="factura">
+            <div class="header">
+                <h2>FACTURA INTELIGENTE</h2>
             </div>
-            <p class="field-hint">El cliente recibirá la factura en este correo</p>
-          </div>
-          <div class="form-group">
-            <label for="clienteFecha">Fecha de Emisión</label>
-            <input type="text" id="clienteFecha" readonly class="result-field"/>
-          </div>
-          <div class="form-group">
-            <label for="clienteVencimiento">Fecha de Vencimiento</label>
-            <input type="text" id="clienteVencimiento" readonly class="result-field"/>
-          </div>
+            
+            <div class="seccion">
+                <div class="titulo">📄 EMISOR</div>
+                <div class="fila">
+                    <div class="etiqueta">Entidad:</div>
+                    <input type="text" class="campo" id="emisor" value="KOOWEXA" onchange="actualizarSugerencias()">
+                </div>
+                <div class="fila">
+                    <div class="etiqueta">ID Fiscal:</div>
+                    <input type="text" class="campo" id="idEmisor" value="010203">
+                </div>
+            </div>
+            
+            <div class="seccion">
+                <div class="titulo">👤 CLIENTE</div>
+                <div class="fila">
+                    <div class="etiqueta">Nombre:</div>
+                    <input type="text" class="campo" id="cliente" value="S.A" onchange="actualizarSugerencias()">
+                </div>
+                <div class="fila">
+                    <div class="etiqueta">Teléfono:</div>
+                    <input type="text" class="campo" id="movil" value="S.A">
+                </div>
+                <div class="fila">
+                    <div class="etiqueta">Email:</div>
+                    <input type="text" class="campo" id="gmail" value="S.A">
+                </div>
+            </div>
+            
+            <div class="seccion">
+                <div class="titulo">📅 PLAZO DE TIEMPO</div>
+                <div class="fila">
+                    <div class="etiqueta">Inicio:</div>
+                    <input type="text" class="campo" id="inicio" value="??/??/????" onfocus="sugerirFecha(this)">
+                </div>
+                <div class="fila">
+                    <div class="etiqueta">Vencimiento:</div>
+                    <input type="text" class="campo" id="vencimiento" value="??/??/????" onfocus="sugerirFecha(this)">
+                </div>
+            </div>
+            
+            <div class="seccion">
+                <div class="titulo">📋 DETALLES DE SERVICIOS</div>
+                <div class="detalles" id="detalles-container">
+                    <div class="item">
+                        <input type="text" class="campo-descripcion" value="Diseño de página web" onchange="calcularItem(this)">
+                        <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
+                        <input type="number" class="campo-precio" value="0" step="0.01" onchange="calcularItem(this)">
+                        <div class="subtotal">$0.00</div>
+                        <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
+                    </div>
+                    <div class="item">
+                        <input type="text" class="campo-descripcion" value="Disponibilidad 24/7" onchange="calcularItem(this)">
+                        <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
+                        <input type="number" class="campo-precio" value="0" step="0.01" onchange="calcularItem(this)">
+                        <div class="subtotal">$0.00</div>
+                        <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
+                    </div>
+                    <div class="item">
+                        <input type="text" class="campo-descripcion" value="Actualizaciones mensuales" onchange="calcularItem(this)">
+                        <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
+                        <input type="number" class="campo-precio" value="0" step="0.01" onchange="calcularItem(this)">
+                        <div class="subtotal">$0.00</div>
+                        <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
+                    </div>
+                </div>
+                <button class="btn-agregar" onclick="agregarItem()">
+                    ➕ Agregar Servicio
+                </button>
+                <div class="sugerencias" id="sugerencias-items" style="display: none;">
+                    💡 <span id="sugerencia-texto"></span>
+                </div>
+            </div>
+            
+            <div class="resumen">
+                <div class="fila-resumen">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="fila-resumen">
+                    <span>Impuestos (0%):</span>
+                    <span id="impuestos">$0.00</span>
+                </div>
+                <div class="fila-resumen total">
+                    <span>TOTAL:</span>
+                    <span id="total">$0.00</span>
+                </div>
+            </div>
+            
+            <div class="seccion">
+                <div class="titulo">💳 FORMA DE PAGO</div>
+                <div class="fila">
+                    <div class="etiqueta">Método:</div>
+                    <select class="campo" id="formaPago" onchange="sugerirPlazos()">
+                        <option value="Transferencia bancaria">Transferencia bancaria</option>
+                        <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Efectivo">Efectivo</option>
+                    </select>
+                </div>
+                <div class="fila">
+                    <div class="etiqueta">Fecha factura:</div>
+                    <input type="text" class="campo" id="fecha" value="15/11/2025" onfocus="sugerirFecha(this)">
+                </div>
+                <div class="sugerencias" id="sugerencias-pago" style="display: none;">
+                    💡 <span id="sugerencia-pago-texto"></span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="btn-group">
-        <button onclick="KoowexaFactura.anterior()" class="btn btn-secondary">
-          <i class="fas fa-arrow-left"></i> Anterior
-        </button>
-        <button onclick="KoowexaFactura.siguiente()" class="btn btn-primary">
-          Siguiente <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
+        
+        <div class="botones">
+            <button class="btn btn-primario" onclick="calcularTotal()">
+                🧮 Recalcular Total
+            </button>
+            <button class="btn btn-success" onclick="generarFacturaInteligente()">
+                🤖 Generar Inteligente
+            </button>
+            <button class="btn btn-warning" onclick="exportarTXT()">
+                📄 Exportar TXT
+            </button>
+            <button class="btn btn-secundario" onclick="enviarWhatsApp()">
+                📱 WhatsApp
+            </button>
+            <button class="btn btn-secundario" onclick="enviarGmail()">
+                📧 Gmail
+            </button>
+        </div>
+        
+        <div class="estado" id="estado"></div>
     </div>
 
-    <div id="step3" class="step">
-      <div class="card">
-        <div class="card-header">
-          <h2><i class="fas fa-check-circle"></i> Revisa y Envía</h2>
-          <p class="card-description">Confirma los datos antes de enviar la factura electrónica</p>
-        </div>
-        <div class="summary-container">
-          <table class="resumen-table" id="resumenFactura"></table>
-        </div>
-      </div>
-      <div class="btn-group">
-        <button onclick="KoowexaFactura.anterior()" class="btn btn-secondary">
-          <i class="fas fa-arrow-left"></i> Anterior
-        </button>
-        <button onclick="KoowexaFactura.enviarFacturaCompleta()" class="btn btn-primary btn-large">
-          <i class="fas fa-paper-plane"></i> Enviar Factura
-        </button>
-      </div>
-    </div>
+    <script>
+        // Sistema de cálculo inteligente
+        class FacturaInteligente {
+            constructor() {
+                this.preciosBase = {
+                    'diseño': 500,
+                    'web': 300,
+                    'página': 400,
+                    'disponibilidad': 200,
+                    'mantenimiento': 150,
+                    'actualización': 100,
+                    'hosting': 50,
+                    'dominio': 25,
+                    'ssl': 80,
+                    'responsive': 200
+                };
+                
+                this.sugerencias = {
+                    'koowexa': '💼 Empresa de desarrollo tecnológico',
+                    's.a': '🏢 Sociedad Anónima - considera precios corporativos',
+                    'diseño web': '🎨 Servicio premium - precio sugerido: $500-1000',
+                    'ecommerce': '🛒 Tienda online - precio sugerido: $800-1500'
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.calcularTotal();
+                this.actualizarSugerencias();
+            }
+            
+            calcularItem(elemento) {
+                const item = elemento.closest('.item');
+                const cantidad = parseFloat(item.querySelector('.campo-cantidad').value) || 0;
+                const precio = parseFloat(item.querySelector('.campo-precio').value) || 0;
+                const subtotal = cantidad * precio;
+                
+                item.querySelector('.subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                this.calcularTotal();
+            }
+            
+            calcularTotal() {
+                let subtotal = 0;
+                document.querySelectorAll('.item').forEach(item => {
+                    const subtotalTexto = item.querySelector('.subtotal').textContent;
+                    const valor = parseFloat(subtotalTexto.replace('$', '')) || 0;
+                    subtotal += valor;
+                });
+                
+                const impuestos = subtotal * 0; // 0% de impuestos
+                const total = subtotal + impuestos;
+                
+                document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                document.getElementById('impuestos').textContent = `$${impuestos.toFixed(2)}`;
+                document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+                
+                this.mostrarEstado(`Total calculado: $${total.toFixed(2)}`, 2000);
+            }
+            
+            sugerirPrecio(descripcion) {
+                const texto = descripcion.toLowerCase();
+                let precioSugerido = 0;
+                
+                for (const [palabra, precio] of Object.entries(this.preciosBase)) {
+                    if (texto.includes(palabra)) {
+                        precioSugerido = Math.max(precioSugerido, precio);
+                    }
+                }
+                
+                // Si no encuentra coincidencias, sugerir basado en longitud y complejidad
+                if (precioSugerido === 0) {
+                    const palabras = texto.split(' ').length;
+                    const complejidad = Math.min(palabas * 50, 500);
+                    precioSugerido = complejidad;
+                }
+                
+                return precioSugerido;
+            }
+            
+            actualizarSugerencias() {
+                const emisor = document.getElementById('emisor').value.toLowerCase();
+                const cliente = document.getElementById('cliente').value.toLowerCase();
+                const sugerenciasDiv = document.getElementById('sugerencias-items');
+                const sugerenciaTexto = document.getElementById('sugerencia-texto');
+                
+                let sugerencias = [];
+                
+                // Sugerencias basadas en el emisor y cliente
+                for (const [key, value] of Object.entries(this.sugerencias)) {
+                    if (emisor.includes(key) || cliente.includes(key)) {
+                        sugerencias.push(value);
+                    }
+                }
+                
+                if (sugerencias.length > 0) {
+                    sugerenciaTexto.textContent = sugerencias.join(' • ');
+                    sugerenciasDiv.style.display = 'block';
+                } else {
+                    sugerenciasDiv.style.display = 'none';
+                }
+            }
+            
+            sugerirPlazos() {
+                const metodoPago = document.getElementById('formaPago').value;
+                const sugerenciasDiv = document.getElementById('sugerencias-pago');
+                const sugerenciaTexto = document.getElementById('sugerencia-pago-texto');
+                
+                const sugerencias = {
+                    'Transferencia bancaria': '⏱️ Plazo sugerido: 7 días • Sin comisiones',
+                    'Tarjeta de crédito': '⏱️ Plazo sugerido: 30 días • Comisión: 3%',
+                    'PayPal': '⏱️ Plazo sugerido: 15 días • Comisión: 5%',
+                    'Efectivo': '⏱️ Plazo sugerido: Inmediato • Sin comisiones'
+                };
+                
+                if (sugerencias[metodoPago]) {
+                    sugerenciaTexto.textContent = sugerencias[metodoPago];
+                    sugerenciasDiv.style.display = 'block';
+                } else {
+                    sugerenciasDiv.style.display = 'none';
+                }
+            }
+            
+            generarSugerenciasPrecios() {
+                document.querySelectorAll('.campo-descripcion').forEach(input => {
+                    const descripcion = input.value;
+                    if (descripcion.trim()) {
+                        const precioSugerido = this.sugerirPrecio(descripcion);
+                        const item = input.closest('.item');
+                        const campoPrecio = item.querySelector('.campo-precio');
+                        
+                        if (parseFloat(campoPrecio.value) === 0) {
+                            campoPrecio.value = precioSugerido;
+                            this.calcularItem(input);
+                        }
+                    }
+                });
+            }
+            
+            mostrarEstado(mensaje, tiempo = 3000) {
+                const estado = document.getElementById('estado');
+                estado.textContent = mensaje;
+                if (tiempo > 0) {
+                    setTimeout(() => {
+                        estado.textContent = '';
+                    }, tiempo);
+                }
+            }
+        }
 
-    <div class="card facturas-section">
-      <div class="card-header">
-        <h2><i class="fas fa-history"></i> Historial de Facturas</h2>
-        <p class="card-description">Facturas enviadas recientemente</p>
-      </div>
-      <div id="facturasEnviadas"></div>
-    </div>
-  </div>
+        // Instancia global del sistema inteligente
+        const facturaAI = new FacturaInteligente();
 
-  <script src="script.js"></script>
+        // Funciones de interfaz
+        function agregarItem() {
+            const container = document.getElementById('detalles-container');
+            const nuevoItem = document.createElement('div');
+            nuevoItem.className = 'item';
+            nuevoItem.innerHTML = `
+                <input type="text" class="campo-descripcion" placeholder="Descripción del servicio" onchange="calcularItem(this)">
+                <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
+                <input type="number" class="campo-precio" value="0" step="0.01" placeholder="Precio" onchange="calcularItem(this)">
+                <div class="subtotal">$0.00</div>
+                <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
+            `;
+            container.appendChild(nuevoItem);
+            facturaAI.mostrarEstado('Nuevo servicio agregado');
+        }
+
+        function eliminarItem(boton) {
+            if (document.querySelectorAll('.item').length > 1) {
+                boton.closest('.item').remove();
+                facturaAI.calcularTotal();
+                facturaAI.mostrarEstado('Servicio eliminado');
+            } else {
+                facturaAI.mostrarEstado('Debe haber al menos un servicio');
+            }
+        }
+
+        function calcularItem(elemento) {
+            facturaAI.calcularItem(elemento);
+        }
+
+        function calcularTotal() {
+            facturaAI.calcularTotal();
+        }
+
+        function actualizarSugerencias() {
+            facturaAI.actualizarSugerencias();
+        }
+
+        function sugerirPlazos() {
+            facturaAI.sugerirPlazos();
+        }
+
+        function sugerirFecha(campo) {
+            if (campo.value === '??/??/????') {
+                const hoy = new Date();
+                const fechaFormateada = hoy.toLocaleDateString('es-ES');
+                campo.value = fechaFormateada;
+            }
+        }
+
+        function generarFacturaInteligente() {
+            // Generar sugerencias de precios automáticas
+            facturaAI.generarSugerenciasPrecios();
+            
+            // Sugerir fechas si no están definidas
+            if (document.getElementById('inicio').value === '??/??/????') {
+                const hoy = new Date();
+                document.getElementById('inicio').value = hoy.toLocaleDateString('es-ES');
+            }
+            
+            if (document.getElementById('vencimiento').value === '??/??/????') {
+                const hoy = new Date();
+                const vencimiento = new Date(hoy);
+                vencimiento.setDate(hoy.getDate() + 30);
+                document.getElementById('vencimiento').value = vencimiento.toLocaleDateString('es-ES');
+            }
+            
+            facturaAI.mostrarEstado('Factura inteligente generada ✓');
+        }
+
+        // Funciones de exportación
+        function obtenerDatosFactura() {
+            const items = [];
+            document.querySelectorAll('.item').forEach(item => {
+                const descripcion = item.querySelector('.campo-descripcion').value;
+                const cantidad = item.querySelector('.campo-cantidad').value;
+                const precio = item.querySelector('.campo-precio').value;
+                const subtotal = item.querySelector('.subtotal').textContent;
+                
+                if (descripcion.trim()) {
+                    items.push(`• ${descripcion} - Cantidad: ${cantidad} - Precio: $${precio} - Subtotal: ${subtotal}`);
+                }
+            });
+            
+            return {
+                emisor: document.getElementById('emisor').value,
+                id: document.getElementById('idEmisor').value,
+                cliente: document.getElementById('cliente').value,
+                movil: document.getElementById('movil').value,
+                gmail: document.getElementById('gmail').value,
+                inicio: document.getElementById('inicio').value,
+                vencimiento: document.getElementById('vencimiento').value,
+                detalles: items,
+                subtotal: document.getElementById('subtotal').textContent,
+                impuestos: document.getElementById('impuestos').textContent,
+                total: document.getElementById('total').textContent,
+                formaPago: document.getElementById('formaPago').value,
+                fecha: document.getElementById('fecha').value
+            };
+        }
+
+        function exportarTXT() {
+            try {
+                const datos = obtenerDatosFactura();
+                const contenido = `╔═══════════════════════════════╗
+║         FACTURA INTELIGENTE    ║
+╚═══════════════════════════════╝
+
+✦ EMISOR
+  ENTIDAD: ${datos.emisor}
+  ID: ${datos.id}
+
+✦ CLIENTE
+  CLIENTE: ${datos.cliente}
+  MOVIL: ${datos.movil}
+  GMAIL: ${datos.gmail}
+
+✦ PLAZO DE TIEMPO
+  ▸ INICIO: ${datos.inicio}
+  ▸ VENCIMIENTO: ${datos.vencimiento}
+
+✦ DETALLES
+  ┌──────────────────────────────┐
+${datos.detalles.map(item => `  │ ${item}`).join('\n')}
+  └──────────────────────────────┘
+
+✦ RESUMEN FINANCIERO
+  ┌──────────────────────────────┐
+  │ Subtotal: ${datos.subtotal}
+  │ Impuestos: ${datos.impuestos}
+  │ TOTAL: ${datos.total}
+  └──────────────────────────────┘
+
+✦ FORMA DE PAGO
+  💳 ${datos.formaPago}
+
+───────────────────────────────
+📅 Fecha De Emisión: ${datos.fecha}
+🔧 Generado automáticamente
+───────────────────────────────`;
+
+                const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const enlace = document.createElement('a');
+                
+                enlace.href = url;
+                enlace.download = `factura_${datos.emisor}_${datos.fecha.replace(/\//g, '-')}.txt`;
+                document.body.appendChild(enlace);
+                enlace.click();
+                document.body.removeChild(enlace);
+                URL.revokeObjectURL(url);
+                
+                facturaAI.mostrarEstado('Factura exportada como TXT ✓');
+            } catch (error) {
+                facturaAI.mostrarEstado('Error al exportar archivo');
+            }
+        }
+
+        function enviarWhatsApp() {
+            try {
+                const datos = obtenerDatosFactura();
+                const mensaje = `FACTURA ${datos.emisor}
+
+📋 RESUMEN:
+Cliente: ${datos.cliente}
+Total: ${datos.total}
+Fecha: ${datos.fecha}
+
+Para más detalles, exporte la factura completa.`;
+                
+                const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+                window.open(url, '_blank');
+                facturaAI.mostrarEstado('Abriendo WhatsApp...');
+            } catch (error) {
+                facturaAI.mostrarEstado('Error al abrir WhatsApp');
+            }
+        }
+
+        function enviarGmail() {
+            try {
+                const datos = obtenerDatosFactura();
+                const asunto = `Factura ${datos.emisor} - ${datos.total}`;
+                const cuerpo = `Adjunto encontrará la factura detallada.
+
+Resumen:
+- Cliente: ${datos.cliente}
+- Total: ${datos.total}
+- Fecha: ${datos.fecha}
+- Método de pago: ${datos.formaPago}
+
+Saludos cordiales.`;
+                
+                const url = `mailto:?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+                window.location.href = url;
+                facturaAI.mostrarEstado('Abriendo cliente de email...');
+            } catch (error) {
+                facturaAI.mostrarEstado('Error al abrir email');
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            facturaAI.init();
+        });
+    </script>
 </body>
 </html>

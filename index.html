@@ -3,135 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura Inteligente - KOOWEXA</title>
+    <meta name="description" content="Sistema de facturación profesional">
+    <title>FACTURACIÓN</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%233b82f6'/><text x='50%' y='52%' font-size='38' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui, sans-serif' font-weight='bold'>F</text></svg>">
     <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, sans-serif;
         }
         
         body {
-            background: #f8fafc;
-            padding: 16px;
-            line-height: 1.4;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light);
             color: #334155;
+            line-height: 1.5;
+            padding: 16px;
+            min-height: 100vh;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
-        .factura {
+        .card {
             background: white;
-            border-radius: 12px;
+            border-radius: var(--radius);
             padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
         
         .header {
             text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid #3b82f6;
+            padding: 16px 0 24px;
+            border-bottom: 2px solid var(--primary);
             margin-bottom: 24px;
         }
         
-        .seccion {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #f1f5f9;
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: var(--shadow);
         }
         
-        .titulo {
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        h2 {
+            font-size: 18px;
             font-weight: 600;
-            color: #1e293b;
+            color: var(--dark);
             margin-bottom: 16px;
-            font-size: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
-        .fila {
+        .section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section:last-of-type {
+            border-bottom: none;
+        }
+        
+        .grid {
             display: grid;
-            grid-template-columns: 120px 1fr;
-            gap: 12px;
+            gap: 16px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        label {
+            font-weight: 500;
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: var(--radius);
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .services-container {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: var(--radius);
+            margin-top: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .service-item {
+            display: grid;
+            grid-template-columns: 1fr 100px 60px 40px;
+            gap: 8px;
             margin-bottom: 12px;
             align-items: center;
         }
         
-        .etiqueta {
-            font-weight: 500;
-            color: #64748b;
-            font-size: 14px;
-        }
-        
-        .campo {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-            transition: all 0.2s ease;
-        }
-        
-        .campo:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        
-        .campo.importe {
-            text-align: right;
-            font-weight: 500;
-        }
-        
-        .detalles {
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 8px;
-            margin-top: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .item {
-            display: grid;
-            grid-template-columns: 1fr 100px 60px 40px;
-            gap: 8px;
-            margin-bottom: 8px;
-            align-items: center;
-        }
-        
-        .campo-descripcion {
+        .service-description {
             padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 6px;
             font-size: 14px;
+            background: white;
         }
         
-        .campo-cantidad, .campo-precio {
+        .service-price {
             padding: 8px 12px;
             border: 1px solid #d1d5db;
             border-radius: 6px;
             font-size: 14px;
             text-align: center;
+            background: white;
         }
         
-        .subtotal {
+        .service-subtotal {
             font-weight: 500;
-            color: #1e293b;
+            color: var(--dark);
             text-align: right;
             padding: 8px;
             font-size: 14px;
         }
         
-        .btn-eliminar {
-            background: #ef4444;
+        .btn-remove {
+            background: var(--danger);
             color: white;
             border: none;
             padding: 6px;
@@ -141,56 +195,67 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color 0.2s;
         }
         
-        .btn-agregar {
-            background: #10b981;
+        .btn-remove:hover, .btn-remove:focus {
+            background: #dc2626;
+        }
+        
+        .btn-add {
+            background: var(--success);
             color: white;
             border: none;
             padding: 10px 16px;
-            border-radius: 6px;
+            border-radius: var(--radius);
             cursor: pointer;
             font-size: 14px;
             margin-top: 12px;
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: background-color 0.2s;
+            font-weight: 500;
         }
         
-        .resumen {
-            background: #1e293b;
+        .btn-add:hover, .btn-add:focus {
+            background: #0da271;
+        }
+        
+        .summary {
+            background: var(--dark);
             color: white;
             padding: 20px;
-            border-radius: 8px;
-            margin: 24px 0;
+            border-radius: var(--radius);
+            margin: 20px 0;
         }
         
-        .fila-resumen {
+        .summary-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
             font-size: 14px;
         }
         
-        .total {
-            font-size: 20px;
+        .summary-total {
+            font-size: 18px;
             font-weight: 600;
             border-top: 1px solid #475569;
             padding-top: 12px;
             margin-top: 12px;
         }
         
-        .botones {
+        .actions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
-            margin-top: 24px;
+            margin-top: 20px;
         }
         
         .btn {
-            padding: 14px 16px;
+            padding: 12px 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: var(--radius);
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
@@ -199,542 +264,489 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
         
-        .btn:active {
-            transform: scale(0.98);
+        .btn:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
         }
         
-        .btn-primario {
-            background: #3b82f6;
+        .btn-primary {
+            background: var(--primary);
             color: white;
         }
         
-        .btn-secundario {
-            background: #6b7280;
-            color: white;
+        .btn-primary:hover, .btn-primary:focus {
+            background: var(--primary-dark);
         }
         
         .btn-success {
-            background: #10b981;
+            background: var(--success);
             color: white;
+        }
+        
+        .btn-success:hover, .btn-success:focus {
+            background: #0da271;
         }
         
         .btn-warning {
-            background: #f59e0b;
+            background: var(--warning);
             color: white;
         }
         
-        .estado {
+        .btn-warning:hover, .btn-warning:focus {
+            background: #d97706;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover, .btn-secondary:focus {
+            background: #475569;
+        }
+        
+        .status {
             text-align: center;
             padding: 12px;
             margin-top: 16px;
             font-size: 14px;
-            color: #64748b;
+            color: var(--secondary);
             min-height: 20px;
         }
         
-        .sugerencias {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 8px;
-            font-size: 12px;
-            color: #0369a1;
+        @media (max-width: 640px) {
+            .card {
+                padding: 16px;
+            }
+            
+            .service-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .service-subtotal {
+                text-align: left;
+            }
+            
+            .actions {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 16px;
+            }
         }
         
-        @media (max-width: 640px) {
-            .item {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-            
-            .botones {
-                grid-template-columns: 1fr;
-            }
-            
-            .fila {
-                grid-template-columns: 1fr;
-                gap: 6px;
+        @media (min-width: 641px) {
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="factura">
+        <div class="card">
             <div class="header">
-                <h2>FACTURA INTELIGENTE</h2>
+                <div class="logo" aria-hidden="true">F</div>
+                <h1>FACTURACIÓN</h1>
             </div>
             
-            <div class="seccion">
-                <div class="titulo">📄 EMISOR</div>
-                <div class="fila">
-                    <div class="etiqueta">Entidad:</div>
-                    <input type="text" class="campo" id="emisor" value="KOOWEXA" onchange="actualizarSugerencias()">
-                </div>
-                <div class="fila">
-                    <div class="etiqueta">ID Fiscal:</div>
-                    <input type="text" class="campo" id="idEmisor" value="010203">
-                </div>
-            </div>
-            
-            <div class="seccion">
-                <div class="titulo">👤 CLIENTE</div>
-                <div class="fila">
-                    <div class="etiqueta">Nombre:</div>
-                    <input type="text" class="campo" id="cliente" value="S.A" onchange="actualizarSugerencias()">
-                </div>
-                <div class="fila">
-                    <div class="etiqueta">Teléfono:</div>
-                    <input type="text" class="campo" id="movil" value="S.A">
-                </div>
-                <div class="fila">
-                    <div class="etiqueta">Email:</div>
-                    <input type="text" class="campo" id="gmail" value="S.A">
-                </div>
-            </div>
-            
-            <div class="seccion">
-                <div class="titulo">📅 PLAZO DE TIEMPO</div>
-                <div class="fila">
-                    <div class="etiqueta">Inicio:</div>
-                    <input type="text" class="campo" id="inicio" value="??/??/????" onfocus="sugerirFecha(this)">
-                </div>
-                <div class="fila">
-                    <div class="etiqueta">Vencimiento:</div>
-                    <input type="text" class="campo" id="vencimiento" value="??/??/????" onfocus="sugerirFecha(this)">
-                </div>
-            </div>
-            
-            <div class="seccion">
-                <div class="titulo">📋 DETALLES DE SERVICIOS</div>
-                <div class="detalles" id="detalles-container">
-                    <div class="item">
-                        <input type="text" class="campo-descripcion" value="Diseño de página web" onchange="calcularItem(this)">
-                        <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
-                        <input type="number" class="campo-precio" value="0" step="0.01" onchange="calcularItem(this)">
-                        <div class="subtotal">$0.00</div>
-                        <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
+            <div class="section">
+                <h2><span aria-hidden="true">📄</span> <span>EMISOR</span></h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="emisor">Entidad</label>
+                        <input type="text" id="emisor" value="KOOWEXA">
                     </div>
-                    <div class="item">
-                        <input type="text" class="campo-descripcion" value="Disponibilidad 24/7" onchange="calcularItem(this)">
-                        <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
-                        <input type="number" class="campo-precio" value="0" step="0.01" onchange="calcularItem(this)">
-                        <div class="subtotal">$0.00</div>
-                        <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
-                    </div>
-                    <div class="item">
-                        <input type="text" class="campo-descripcion" value="Actualizaciones mensuales" onchange="calcularItem(this)">
-                        <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
-                        <input type="number" class="campo-precio" value="0" step="0.01" onchange="calcularItem(this)">
-                        <div class="subtotal">$0.00</div>
-                        <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
+                    <div class="form-group">
+                        <label for="idEmisor">ID Fiscal</label>
+                        <input type="text" id="idEmisor" value="IDF-2024-001">
                     </div>
                 </div>
-                <button class="btn-agregar" onclick="agregarItem()">
-                    ➕ Agregar Servicio
+            </div>
+            
+            <div class="section">
+                <h2><span aria-hidden="true">👤</span> <span>CLIENTE</span></h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="cliente">Nombre</label>
+                        <input type="text" id="cliente" value="S.A">
+                    </div>
+                    <div class="form-group">
+                        <label for="movil">Teléfono</label>
+                        <input type="text" id="movil" value="S.A">
+                    </div>
+                    <div class="form-group">
+                        <label for="gmail">Email</label>
+                        <input type="text" id="gmail" value="S.A">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span aria-hidden="true">📅</span> <span>PLAZO DE TIEMPO</span></h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="inicio">Inicio</label>
+                        <input type="text" id="inicio" value="??/??/????">
+                    </div>
+                    <div class="form-group">
+                        <label for="vencimiento">Vencimiento</label>
+                        <input type="text" id="vencimiento" value="??/??/????">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span aria-hidden="true">📋</span> <span>DETALLES DE SERVICIOS</span></h2>
+                <div class="services-container" id="detalles-container">
+                    <div class="service-item">
+                        <input type="text" class="service-description" value="Diseño de página web">
+                        <input type="number" class="service-price" value="0" step="0.01" aria-label="Precio del servicio">
+                        <div class="service-subtotal">$0.00</div>
+                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
+                    </div>
+                    <div class="service-item">
+                        <input type="text" class="service-description" value="Disponibilidad 24/7">
+                        <input type="number" class="service-price" value="0" step="0.01" aria-label="Precio del servicio">
+                        <div class="service-subtotal">$0.00</div>
+                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
+                    </div>
+                    <div class="service-item">
+                        <input type="text" class="service-description" value="Actualizaciones mensuales">
+                        <input type="number" class="service-price" value="0" step="0.01" aria-label="Precio del servicio">
+                        <div class="service-subtotal">$0.00</div>
+                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
+                    </div>
+                </div>
+                <button class="btn-add" id="btn-agregar">
+                    <span aria-hidden="true">➕</span> Agregar Servicio
                 </button>
-                <div class="sugerencias" id="sugerencias-items" style="display: none;">
-                    💡 <span id="sugerencia-texto"></span>
-                </div>
             </div>
             
-            <div class="resumen">
-                <div class="fila-resumen">
+            <div class="summary">
+                <div class="summary-row">
                     <span>Subtotal:</span>
                     <span id="subtotal">$0.00</span>
                 </div>
-                <div class="fila-resumen">
+                <div class="summary-row">
                     <span>Impuestos (0%):</span>
                     <span id="impuestos">$0.00</span>
                 </div>
-                <div class="fila-resumen total">
+                <div class="summary-row summary-total">
                     <span>TOTAL:</span>
                     <span id="total">$0.00</span>
                 </div>
             </div>
             
-            <div class="seccion">
-                <div class="titulo">💳 FORMA DE PAGO</div>
-                <div class="fila">
-                    <div class="etiqueta">Método:</div>
-                    <select class="campo" id="formaPago" onchange="sugerirPlazos()">
-                        <option value="Transferencia bancaria">Transferencia bancaria</option>
-                        <option value="Tarjeta de crédito">Tarjeta de crédito</option>
-                        <option value="PayPal">PayPal</option>
-                        <option value="Efectivo">Efectivo</option>
-                    </select>
-                </div>
-                <div class="fila">
-                    <div class="etiqueta">Fecha factura:</div>
-                    <input type="text" class="campo" id="fecha" value="15/11/2025" onfocus="sugerirFecha(this)">
-                </div>
-                <div class="sugerencias" id="sugerencias-pago" style="display: none;">
-                    💡 <span id="sugerencia-pago-texto"></span>
+            <div class="section">
+                <h2><span aria-hidden="true">💳</span> <span>FORMA DE PAGO</span></h2>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="formaPago">Método</label>
+                        <select id="formaPago">
+                            <option value="Transferencia bancaria">Transferencia bancaria</option>
+                            <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha factura</label>
+                        <input type="text" id="fecha" value="15/11/2025">
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="botones">
-            <button class="btn btn-primario" onclick="calcularTotal()">
-                🧮 Recalcular Total
+        <div class="actions">
+            <button class="btn btn-primary" id="btn-recalcular">
+                <span aria-hidden="true">🧮</span> Recalcular
             </button>
-            <button class="btn btn-success" onclick="generarFacturaInteligente()">
-                🤖 Generar Inteligente
+            <button class="btn btn-success" id="btn-automatizar">
+                <span aria-hidden="true">⚡</span> Automatizar
             </button>
-            <button class="btn btn-warning" onclick="exportarTXT()">
-                📄 Exportar TXT
+            <button class="btn btn-warning" id="btn-exportar">
+                <span aria-hidden="true">📄</span> Exportar TXT
             </button>
-            <button class="btn btn-secundario" onclick="enviarWhatsApp()">
-                📱 WhatsApp
+            <button class="btn btn-secondary" id="btn-whatsapp">
+                <span aria-hidden="true">📱</span> WhatsApp
             </button>
-            <button class="btn btn-secundario" onclick="enviarGmail()">
-                📧 Gmail
+            <button class="btn btn-secondary" id="btn-gmail">
+                <span aria-hidden="true">📧</span> Gmail
             </button>
         </div>
         
-        <div class="estado" id="estado"></div>
+        <div class="status" id="estado" aria-live="polite"></div>
     </div>
 
     <script>
-        // Sistema de cálculo inteligente
-        class FacturaInteligente {
-            constructor() {
-                this.preciosBase = {
-                    'diseño': 500,
-                    'web': 300,
-                    'página': 400,
-                    'disponibilidad': 200,
-                    'mantenimiento': 150,
-                    'actualización': 100,
-                    'hosting': 50,
-                    'dominio': 25,
-                    'ssl': 80,
-                    'responsive': 200
-                };
-                
-                this.sugerencias = {
-                    'koowexa': '💼 Empresa de desarrollo tecnológico',
-                    's.a': '🏢 Sociedad Anónima - considera precios corporativos',
-                    'diseño web': '🎨 Servicio premium - precio sugerido: $500-1000',
-                    'ecommerce': '🛒 Tienda online - precio sugerido: $800-1500'
-                };
-                
-                this.init();
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            'use strict';
             
-            init() {
-                this.calcularTotal();
-                this.actualizarSugerencias();
-            }
-            
-            calcularItem(elemento) {
-                const item = elemento.closest('.item');
-                const cantidad = parseFloat(item.querySelector('.campo-cantidad').value) || 0;
-                const precio = parseFloat(item.querySelector('.campo-precio').value) || 0;
-                const subtotal = cantidad * precio;
+            class FacturaInteligente {
+                constructor() {
+                    this.preciosBase = {
+                        'diseño': 500, 'web': 300, 'página': 400, 'disponibilidad': 200,
+                        'mantenimiento': 150, 'actualización': 100, 'hosting': 50,
+                        'dominio': 25, 'ssl': 80, 'responsive': 200, 'ecommerce': 800,
+                        'consultoría': 300, 'seo': 250, 'marketing': 350
+                    };
+                    
+                    this.init();
+                }
                 
-                item.querySelector('.subtotal').textContent = `$${subtotal.toFixed(2)}`;
-                this.calcularTotal();
-            }
-            
-            calcularTotal() {
-                let subtotal = 0;
-                document.querySelectorAll('.item').forEach(item => {
-                    const subtotalTexto = item.querySelector('.subtotal').textContent;
-                    const valor = parseFloat(subtotalTexto.replace('$', '')) || 0;
-                    subtotal += valor;
-                });
+                init() {
+                    this.configurarEventos();
+                    this.actualizarFechas();
+                    this.generarIdFiscal();
+                    this.calcularTotal();
+                }
                 
-                const impuestos = subtotal * 0; // 0% de impuestos
-                const total = subtotal + impuestos;
+                configurarEventos() {
+                    document.getElementById('btn-agregar').addEventListener('click', () => this.agregarItem());
+                    document.getElementById('btn-recalcular').addEventListener('click', () => this.calcularTotal());
+                    document.getElementById('btn-automatizar').addEventListener('click', () => this.automatizar());
+                    document.getElementById('btn-exportar').addEventListener('click', () => this.exportarTXT());
+                    document.getElementById('btn-whatsapp').addEventListener('click', () => this.enviarWhatsApp());
+                    document.getElementById('btn-gmail').addEventListener('click', () => this.enviarGmail());
+                    
+                    document.getElementById('detalles-container').addEventListener('input', (e) => {
+                        if (e.target.classList.contains('service-price') || 
+                            e.target.classList.contains('service-description')) {
+                            this.calcularItem(e.target);
+                        }
+                    });
+                    
+                    document.getElementById('detalles-container').addEventListener('click', (e) => {
+                        if (e.target.classList.contains('btn-remove')) {
+                            this.eliminarItem(e.target);
+                        }
+                    });
+                    
+                    document.getElementById('emisor').addEventListener('input', () => this.generarIdFiscal());
+                }
                 
-                document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-                document.getElementById('impuestos').textContent = `$${impuestos.toFixed(2)}`;
-                document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+                generarIdFiscal() {
+                    const emisor = document.getElementById('emisor').value;
+                    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+                    const fecha = new Date().getFullYear();
+                    const id = `IDF-${fecha}-${random}`;
+                    document.getElementById('idEmisor').value = id;
+                }
                 
-                this.mostrarEstado(`Total calculado: $${total.toFixed(2)}`, 2000);
-            }
-            
-            sugerirPrecio(descripcion) {
-                const texto = descripcion.toLowerCase();
-                let precioSugerido = 0;
-                
-                for (const [palabra, precio] of Object.entries(this.preciosBase)) {
-                    if (texto.includes(palabra)) {
-                        precioSugerido = Math.max(precioSugerido, precio);
+                actualizarFechas() {
+                    const hoy = new Date();
+                    const vencimiento = new Date(hoy);
+                    vencimiento.setDate(hoy.getDate() + 30);
+                    
+                    if (document.getElementById('inicio').value === '??/??/????') {
+                        document.getElementById('inicio').value = hoy.toLocaleDateString('es-ES');
+                    }
+                    
+                    if (document.getElementById('vencimiento').value === '??/??/????') {
+                        document.getElementById('vencimiento').value = vencimiento.toLocaleDateString('es-ES');
+                    }
+                    
+                    if (document.getElementById('fecha').value === '15/11/2025') {
+                        document.getElementById('fecha').value = hoy.toLocaleDateString('es-ES');
                     }
                 }
                 
-                // Si no encuentra coincidencias, sugerir basado en longitud y complejidad
-                if (precioSugerido === 0) {
-                    const palabras = texto.split(' ').length;
-                    const complejidad = Math.min(palabas * 50, 500);
-                    precioSugerido = complejidad;
+                calcularItem(elemento) {
+                    const item = elemento.closest('.service-item');
+                    const precio = parseFloat(item.querySelector('.service-price').value) || 0;
+                    const subtotal = precio;
+                    
+                    item.querySelector('.service-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                    this.calcularTotal();
                 }
                 
-                return precioSugerido;
-            }
-            
-            actualizarSugerencias() {
-                const emisor = document.getElementById('emisor').value.toLowerCase();
-                const cliente = document.getElementById('cliente').value.toLowerCase();
-                const sugerenciasDiv = document.getElementById('sugerencias-items');
-                const sugerenciaTexto = document.getElementById('sugerencia-texto');
-                
-                let sugerencias = [];
-                
-                // Sugerencias basadas en el emisor y cliente
-                for (const [key, value] of Object.entries(this.sugerencias)) {
-                    if (emisor.includes(key) || cliente.includes(key)) {
-                        sugerencias.push(value);
-                    }
+                calcularTotal() {
+                    let subtotal = 0;
+                    document.querySelectorAll('.service-item').forEach(item => {
+                        const subtotalTexto = item.querySelector('.service-subtotal').textContent;
+                        const valor = parseFloat(subtotalTexto.replace('$', '')) || 0;
+                        subtotal += valor;
+                    });
+                    
+                    const impuestos = subtotal * 0;
+                    const total = subtotal + impuestos;
+                    
+                    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                    document.getElementById('impuestos').textContent = `$${impuestos.toFixed(2)}`;
+                    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+                    
+                    this.mostrarEstado(`Total calculado: $${total.toFixed(2)}`, 2000);
                 }
                 
-                if (sugerencias.length > 0) {
-                    sugerenciaTexto.textContent = sugerencias.join(' • ');
-                    sugerenciasDiv.style.display = 'block';
-                } else {
-                    sugerenciasDiv.style.display = 'none';
-                }
-            }
-            
-            sugerirPlazos() {
-                const metodoPago = document.getElementById('formaPago').value;
-                const sugerenciasDiv = document.getElementById('sugerencias-pago');
-                const sugerenciaTexto = document.getElementById('sugerencia-pago-texto');
-                
-                const sugerencias = {
-                    'Transferencia bancaria': '⏱️ Plazo sugerido: 7 días • Sin comisiones',
-                    'Tarjeta de crédito': '⏱️ Plazo sugerido: 30 días • Comisión: 3%',
-                    'PayPal': '⏱️ Plazo sugerido: 15 días • Comisión: 5%',
-                    'Efectivo': '⏱️ Plazo sugerido: Inmediato • Sin comisiones'
-                };
-                
-                if (sugerencias[metodoPago]) {
-                    sugerenciaTexto.textContent = sugerencias[metodoPago];
-                    sugerenciasDiv.style.display = 'block';
-                } else {
-                    sugerenciasDiv.style.display = 'none';
-                }
-            }
-            
-            generarSugerenciasPrecios() {
-                document.querySelectorAll('.campo-descripcion').forEach(input => {
-                    const descripcion = input.value;
-                    if (descripcion.trim()) {
-                        const precioSugerido = this.sugerirPrecio(descripcion);
-                        const item = input.closest('.item');
-                        const campoPrecio = item.querySelector('.campo-precio');
-                        
-                        if (parseFloat(campoPrecio.value) === 0) {
-                            campoPrecio.value = precioSugerido;
-                            this.calcularItem(input);
+                sugerirPrecio(descripcion) {
+                    const texto = descripcion.toLowerCase();
+                    let precioSugerido = 0;
+                    
+                    for (const [palabra, precio] of Object.entries(this.preciosBase)) {
+                        if (texto.includes(palabra)) {
+                            precioSugerido = Math.max(precioSugerido, precio);
                         }
                     }
-                });
-            }
-            
-            mostrarEstado(mensaje, tiempo = 3000) {
-                const estado = document.getElementById('estado');
-                estado.textContent = mensaje;
-                if (tiempo > 0) {
-                    setTimeout(() => {
-                        estado.textContent = '';
-                    }, tiempo);
+                    
+                    if (precioSugerido === 0) {
+                        const palabras = texto.split(' ').length;
+                        precioSugerido = Math.min(palabras * 50, 500);
+                    }
+                    
+                    return precioSugerido;
                 }
-            }
-        }
-
-        // Instancia global del sistema inteligente
-        const facturaAI = new FacturaInteligente();
-
-        // Funciones de interfaz
-        function agregarItem() {
-            const container = document.getElementById('detalles-container');
-            const nuevoItem = document.createElement('div');
-            nuevoItem.className = 'item';
-            nuevoItem.innerHTML = `
-                <input type="text" class="campo-descripcion" placeholder="Descripción del servicio" onchange="calcularItem(this)">
-                <input type="number" class="campo-cantidad" value="1" min="1" onchange="calcularItem(this)">
-                <input type="number" class="campo-precio" value="0" step="0.01" placeholder="Precio" onchange="calcularItem(this)">
-                <div class="subtotal">$0.00</div>
-                <button class="btn-eliminar" onclick="eliminarItem(this)">✕</button>
-            `;
-            container.appendChild(nuevoItem);
-            facturaAI.mostrarEstado('Nuevo servicio agregado');
-        }
-
-        function eliminarItem(boton) {
-            if (document.querySelectorAll('.item').length > 1) {
-                boton.closest('.item').remove();
-                facturaAI.calcularTotal();
-                facturaAI.mostrarEstado('Servicio eliminado');
-            } else {
-                facturaAI.mostrarEstado('Debe haber al menos un servicio');
-            }
-        }
-
-        function calcularItem(elemento) {
-            facturaAI.calcularItem(elemento);
-        }
-
-        function calcularTotal() {
-            facturaAI.calcularTotal();
-        }
-
-        function actualizarSugerencias() {
-            facturaAI.actualizarSugerencias();
-        }
-
-        function sugerirPlazos() {
-            facturaAI.sugerirPlazos();
-        }
-
-        function sugerirFecha(campo) {
-            if (campo.value === '??/??/????') {
-                const hoy = new Date();
-                const fechaFormateada = hoy.toLocaleDateString('es-ES');
-                campo.value = fechaFormateada;
-            }
-        }
-
-        function generarFacturaInteligente() {
-            // Generar sugerencias de precios automáticas
-            facturaAI.generarSugerenciasPrecios();
-            
-            // Sugerir fechas si no están definidas
-            if (document.getElementById('inicio').value === '??/??/????') {
-                const hoy = new Date();
-                document.getElementById('inicio').value = hoy.toLocaleDateString('es-ES');
-            }
-            
-            if (document.getElementById('vencimiento').value === '??/??/????') {
-                const hoy = new Date();
-                const vencimiento = new Date(hoy);
-                vencimiento.setDate(hoy.getDate() + 30);
-                document.getElementById('vencimiento').value = vencimiento.toLocaleDateString('es-ES');
-            }
-            
-            facturaAI.mostrarEstado('Factura inteligente generada ✓');
-        }
-
-        // Funciones de exportación
-        function obtenerDatosFactura() {
-            const items = [];
-            document.querySelectorAll('.item').forEach(item => {
-                const descripcion = item.querySelector('.campo-descripcion').value;
-                const cantidad = item.querySelector('.campo-cantidad').value;
-                const precio = item.querySelector('.campo-precio').value;
-                const subtotal = item.querySelector('.subtotal').textContent;
                 
-                if (descripcion.trim()) {
-                    items.push(`• ${descripcion} - Cantidad: ${cantidad} - Precio: $${precio} - Subtotal: ${subtotal}`);
+                agregarItem() {
+                    const container = document.getElementById('detalles-container');
+                    const nuevoItem = document.createElement('div');
+                    nuevoItem.className = 'service-item';
+                    nuevoItem.innerHTML = `
+                        <input type="text" class="service-description" placeholder="Descripción del servicio">
+                        <input type="number" class="service-price" value="0" step="0.01" placeholder="Precio" aria-label="Precio del servicio">
+                        <div class="service-subtotal">$0.00</div>
+                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
+                    `;
+                    container.appendChild(nuevoItem);
+                    this.mostrarEstado('Nuevo servicio agregado');
                 }
-            });
-            
-            return {
-                emisor: document.getElementById('emisor').value,
-                id: document.getElementById('idEmisor').value,
-                cliente: document.getElementById('cliente').value,
-                movil: document.getElementById('movil').value,
-                gmail: document.getElementById('gmail').value,
-                inicio: document.getElementById('inicio').value,
-                vencimiento: document.getElementById('vencimiento').value,
-                detalles: items,
-                subtotal: document.getElementById('subtotal').textContent,
-                impuestos: document.getElementById('impuestos').textContent,
-                total: document.getElementById('total').textContent,
-                formaPago: document.getElementById('formaPago').value,
-                fecha: document.getElementById('fecha').value
-            };
-        }
-
-        function exportarTXT() {
-            try {
-                const datos = obtenerDatosFactura();
-                const contenido = `╔═══════════════════════════════╗
-║         FACTURA INTELIGENTE    ║
-╚═══════════════════════════════╝
-
-✦ EMISOR
-  ENTIDAD: ${datos.emisor}
-  ID: ${datos.id}
-
-✦ CLIENTE
-  CLIENTE: ${datos.cliente}
-  MOVIL: ${datos.movil}
-  GMAIL: ${datos.gmail}
-
-✦ PLAZO DE TIEMPO
-  ▸ INICIO: ${datos.inicio}
-  ▸ VENCIMIENTO: ${datos.vencimiento}
-
-✦ DETALLES
-  ┌──────────────────────────────┐
-${datos.detalles.map(item => `  │ ${item}`).join('\n')}
-  └──────────────────────────────┘
-
-✦ RESUMEN FINANCIERO
-  ┌──────────────────────────────┐
-  │ Subtotal: ${datos.subtotal}
-  │ Impuestos: ${datos.impuestos}
-  │ TOTAL: ${datos.total}
-  └──────────────────────────────┘
-
-✦ FORMA DE PAGO
-  💳 ${datos.formaPago}
-
-───────────────────────────────
-📅 Fecha De Emisión: ${datos.fecha}
-🔧 Generado automáticamente
-───────────────────────────────`;
-
-                const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const enlace = document.createElement('a');
                 
-                enlace.href = url;
-                enlace.download = `factura_${datos.emisor}_${datos.fecha.replace(/\//g, '-')}.txt`;
-                document.body.appendChild(enlace);
-                enlace.click();
-                document.body.removeChild(enlace);
-                URL.revokeObjectURL(url);
+                eliminarItem(boton) {
+                    if (document.querySelectorAll('.service-item').length > 1) {
+                        boton.closest('.service-item').remove();
+                        this.calcularTotal();
+                        this.mostrarEstado('Servicio eliminado');
+                    } else {
+                        this.mostrarEstado('Debe haber al menos un servicio');
+                    }
+                }
                 
-                facturaAI.mostrarEstado('Factura exportada como TXT ✓');
-            } catch (error) {
-                facturaAI.mostrarEstado('Error al exportar archivo');
-            }
-        }
+                automatizar() {
+                    document.querySelectorAll('.service-description').forEach(input => {
+                        const descripcion = input.value;
+                        if (descripcion.trim()) {
+                            const precioSugerido = this.sugerirPrecio(descripcion);
+                            const item = input.closest('.service-item');
+                            const campoPrecio = item.querySelector('.service-price');
+                            
+                            if (parseFloat(campoPrecio.value) === 0) {
+                                campoPrecio.value = precioSugerido;
+                                this.calcularItem(input);
+                            }
+                        }
+                    });
+                    
+                    this.actualizarFechas();
+                    this.mostrarEstado('Automatización completada ✓');
+                }
+                
+                obtenerDatosFactura() {
+                    const items = [];
+                    document.querySelectorAll('.service-item').forEach(item => {
+                        const descripcion = item.querySelector('.service-description').value;
+                        const precio = item.querySelector('.service-price').value;
+                        const subtotal = item.querySelector('.service-subtotal').textContent;
+                        
+                        if (descripcion.trim()) {
+                            items.push(`• ${descripcion} - Precio: $${precio} - Subtotal: ${subtotal}`);
+                        }
+                    });
+                    
+                    return {
+                        emisor: document.getElementById('emisor').value,
+                        id: document.getElementById('idEmisor').value,
+                        cliente: document.getElementById('cliente').value,
+                        movil: document.getElementById('movil').value,
+                        gmail: document.getElementById('gmail').value,
+                        inicio: document.getElementById('inicio').value,
+                        vencimiento: document.getElementById('vencimiento').value,
+                        detalles: items,
+                        subtotal: document.getElementById('subtotal').textContent,
+                        impuestos: document.getElementById('impuestos').textContent,
+                        total: document.getElementById('total').textContent,
+                        formaPago: document.getElementById('formaPago').value,
+                        fecha: document.getElementById('fecha').value
+                    };
+                }
+                
+                exportarTXT() {
+                    try {
+                        const datos = this.obtenerDatosFactura();
+                        const contenido = `FACTURA INTELIGENTE
 
-        function enviarWhatsApp() {
-            try {
-                const datos = obtenerDatosFactura();
-                const mensaje = `FACTURA ${datos.emisor}
+EMISOR
+Entidad: ${datos.emisor}
+ID: ${datos.id}
 
-📋 RESUMEN:
+CLIENTE
+Cliente: ${datos.cliente}
+Teléfono: ${datos.movil}
+Email: ${datos.gmail}
+
+PLAZO DE TIEMPO
+Inicio: ${datos.inicio}
+Vencimiento: ${datos.vencimiento}
+
+DETALLES
+${datos.detalles.join('\n')}
+
+RESUMEN FINANCIERO
+Subtotal: ${datos.subtotal}
+Impuestos: ${datos.impuestos}
+TOTAL: ${datos.total}
+
+FORMA DE PAGO
+${datos.formaPago}
+
+Fecha: ${datos.fecha}
+Generado automáticamente`;
+
+                        const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+                        const url = URL.createObjectURL(blob);
+                        const enlace = document.createElement('a');
+                        
+                        enlace.href = url;
+                        enlace.download = `factura_${datos.emisor}_${datos.fecha.replace(/\//g, '-')}.txt`;
+                        document.body.appendChild(enlace);
+                        enlace.click();
+                        document.body.removeChild(enlace);
+                        URL.revokeObjectURL(url);
+                        
+                        this.mostrarEstado('Factura exportada como TXT ✓');
+                    } catch (error) {
+                        this.mostrarEstado('Error al exportar archivo');
+                    }
+                }
+                
+                enviarWhatsApp() {
+                    try {
+                        const datos = this.obtenerDatosFactura();
+                        const mensaje = `FACTURA ${datos.emisor}
+
 Cliente: ${datos.cliente}
 Total: ${datos.total}
 Fecha: ${datos.fecha}
 
 Para más detalles, exporte la factura completa.`;
+                        
+                        const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+                        window.open(url, '_blank');
+                        this.mostrarEstado('Abriendo WhatsApp...');
+                    } catch (error) {
+                        this.mostrarEstado('Error al abrir WhatsApp');
+                    }
+                }
                 
-                const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-                window.open(url, '_blank');
-                facturaAI.mostrarEstado('Abriendo WhatsApp...');
-            } catch (error) {
-                facturaAI.mostrarEstado('Error al abrir WhatsApp');
-            }
-        }
-
-        function enviarGmail() {
-            try {
-                const datos = obtenerDatosFactura();
-                const asunto = `Factura ${datos.emisor} - ${datos.total}`;
-                const cuerpo = `Adjunto encontrará la factura detallada.
+                enviarGmail() {
+                    try {
+                        const datos = this.obtenerDatosFactura();
+                        const asunto = `Factura ${datos.emisor} - ${datos.total}`;
+                        const cuerpo = `Adjunto encontrará la factura detallada.
 
 Resumen:
 - Cliente: ${datos.cliente}
@@ -743,18 +755,27 @@ Resumen:
 - Método de pago: ${datos.formaPago}
 
 Saludos cordiales.`;
+                        
+                        const url = `mailto:?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+                        window.location.href = url;
+                        this.mostrarEstado('Abriendo cliente de email...');
+                    } catch (error) {
+                        this.mostrarEstado('Error al abrir email');
+                    }
+                }
                 
-                const url = `mailto:?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
-                window.location.href = url;
-                facturaAI.mostrarEstado('Abriendo cliente de email...');
-            } catch (error) {
-                facturaAI.mostrarEstado('Error al abrir email');
+                mostrarEstado(mensaje, tiempo = 3000) {
+                    const estado = document.getElementById('estado');
+                    estado.textContent = mensaje;
+                    if (tiempo > 0) {
+                        setTimeout(() => {
+                            estado.textContent = '';
+                        }, tiempo);
+                    }
+                }
             }
-        }
 
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            facturaAI.init();
+            const factura = new FacturaInteligente();
         });
     </script>
 </body>

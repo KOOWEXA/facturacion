@@ -3,347 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema de facturación profesional">
     <title>FACTURACIÓN</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%233b82f6'/><text x='50%' y='52%' font-size='38' text-anchor='middle' dy='.3em' fill='white' font-family='system-ui, sans-serif' font-weight='bold'>F</text></svg>">
     <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --secondary: #64748b;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --radius: 8px;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--light);
-            color: #334155;
-            line-height: 1.5;
-            padding: 16px;
-            min-height: 100vh;
-        }
-        
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        
-        .header {
-            text-align: center;
-            padding: 16px 0 24px;
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: 24px;
-        }
-        
-        .logo {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 12px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            box-shadow: var(--shadow);
-        }
-        
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--dark);
-        }
-        
-        h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .section {
-            margin-bottom: 24px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .section:last-of-type {
-            border-bottom: none;
-        }
-        
-        .grid {
-            display: grid;
-            gap: 16px;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        
-        label {
-            font-weight: 500;
-            color: var(--secondary);
-            font-size: 14px;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: var(--radius);
-            font-size: 14px;
-            background: white;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        
-        .services-container {
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: var(--radius);
-            margin-top: 8px;
-            border: 1px solid var(--border);
-        }
-        
-        .service-item {
-            display: grid;
-            grid-template-columns: 1fr 100px 60px 40px;
-            gap: 8px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
-        
-        .service-description {
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            background: white;
-        }
-        
-        .service-price {
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            text-align: center;
-            background: white;
-        }
-        
-        .service-subtotal {
-            font-weight: 500;
-            color: var(--dark);
-            text-align: right;
-            padding: 8px;
-            font-size: 14px;
-        }
-        
-        .btn-remove {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 6px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s;
-        }
-        
-        .btn-remove:hover, .btn-remove:focus {
-            background: #dc2626;
-        }
-        
-        .btn-add {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: var(--radius);
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: background-color 0.2s;
-            font-weight: 500;
-        }
-        
-        .btn-add:hover, .btn-add:focus {
-            background: #0da271;
-        }
-        
-        .summary {
-            background: var(--dark);
-            color: white;
-            padding: 20px;
-            border-radius: var(--radius);
-            margin: 20px 0;
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        
-        .summary-total {
-            font-size: 18px;
-            font-weight: 600;
-            border-top: 1px solid #475569;
-            padding-top: 12px;
-            margin-top: 12px;
-        }
-        
-        .actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
-        }
-        
-        .btn {
-            padding: 12px 16px;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-        
-        .btn:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover, .btn-primary:focus {
-            background: var(--primary-dark);
-        }
-        
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-        
-        .btn-success:hover, .btn-success:focus {
-            background: #0da271;
-        }
-        
-        .btn-warning {
-            background: var(--warning);
-            color: white;
-        }
-        
-        .btn-warning:hover, .btn-warning:focus {
-            background: #d97706;
-        }
-        
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-        
-        .btn-secondary:hover, .btn-secondary:focus {
-            background: #475569;
-        }
-        
-        .status {
-            text-align: center;
-            padding: 12px;
-            margin-top: 16px;
-            font-size: 14px;
-            color: var(--secondary);
-            min-height: 20px;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; background: #f8fafc; color: #334155; padding: 16px; line-height: 1.5; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+        .header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #3b82f6; margin-bottom: 20px; }
+        .logo { width: 60px; height: 60px; background: #3b82f6; border-radius: 50%; margin: 0 auto 10px; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; }
+        h1 { font-size: 22px; color: #1e293b; }
+        h2 { font-size: 16px; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; }
+        .grid { display: grid; gap: 12px; }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .form-group { display: flex; flex-direction: column; gap: 4px; }
+        label { font-weight: 500; color: #64748b; font-size: 13px; }
+        input, select { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; background: white; }
+        input:focus, select:focus { outline: none; border-color: #3b82f6; }
+        .services-container { background: #f8fafc; padding: 12px; border-radius: 6px; margin-top: 8px; border: 1px solid #e2e8f0; }
+        .service-item { display: grid; grid-template-columns: 1fr 80px 60px 30px; gap: 8px; margin-bottom: 10px; align-items: center; }
+        .service-description, .service-price { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 13px; background: white; }
+        .service-subtotal { font-weight: 500; color: #1e293b; text-align: right; font-size: 13px; }
+        .btn-remove { background: #ef4444; color: white; border: none; padding: 4px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+        .btn-add { background: #10b981; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; margin-top: 10px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+        .summary { background: #1e293b; color: white; padding: 16px; border-radius: 6px; margin: 16px 0; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
+        .summary-total { font-size: 16px; font-weight: 600; border-top: 1px solid #475569; padding-top: 10px; margin-top: 10px; }
+        .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 16px; }
+        .btn { padding: 10px 12px; border: none; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-secondary { background: #64748b; color: white; }
+        .status { text-align: center; padding: 10px; margin-top: 12px; font-size: 13px; color: #64748b; min-height: 18px; }
         @media (max-width: 640px) {
-            .card {
-                padding: 16px;
-            }
-            
-            .service-item {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-            
-            .service-subtotal {
-                text-align: left;
-            }
-            
-            .actions {
-                grid-template-columns: 1fr;
-            }
-            
-            h2 {
-                font-size: 16px;
-            }
-        }
-        
-        @media (min-width: 641px) {
-            .grid-2 {
-                grid-template-columns: 1fr 1fr;
-            }
+            .card { padding: 16px; }
+            .service-item { grid-template-columns: 1fr; }
+            .service-subtotal { text-align: left; }
+            .actions { grid-template-columns: 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -351,12 +48,12 @@
     <div class="container">
         <div class="card">
             <div class="header">
-                <div class="logo" aria-hidden="true">F</div>
+                <div class="logo">F</div>
                 <h1>FACTURACIÓN</h1>
             </div>
             
             <div class="section">
-                <h2><span aria-hidden="true">📄</span> <span>EMISOR</span></h2>
+                <h2>📄 EMISOR</h2>
                 <div class="grid grid-2">
                     <div class="form-group">
                         <label for="emisor">Entidad</label>
@@ -370,25 +67,25 @@
             </div>
             
             <div class="section">
-                <h2><span aria-hidden="true">👤</span> <span>CLIENTE</span></h2>
+                <h2>👤 CLIENTE</h2>
                 <div class="grid grid-2">
                     <div class="form-group">
                         <label for="cliente">Nombre</label>
-                        <input type="text" id="cliente" value="S.A">
+                        <input type="text" id="cliente" placeholder="Nombre del cliente">
                     </div>
                     <div class="form-group">
                         <label for="movil">Teléfono</label>
-                        <input type="text" id="movil" value="S.A">
+                        <input type="text" id="movil" placeholder="Ej: +34600123456">
                     </div>
                     <div class="form-group">
                         <label for="gmail">Email</label>
-                        <input type="text" id="gmail" value="S.A">
+                        <input type="email" id="gmail" placeholder="cliente@ejemplo.com">
                     </div>
                 </div>
             </div>
             
             <div class="section">
-                <h2><span aria-hidden="true">📅</span> <span>PLAZO DE TIEMPO</span></h2>
+                <h2>📅 PLAZO DE TIEMPO</h2>
                 <div class="grid grid-2">
                     <div class="form-group">
                         <label for="inicio">Inicio</label>
@@ -402,30 +99,16 @@
             </div>
             
             <div class="section">
-                <h2><span aria-hidden="true">📋</span> <span>DETALLES DE SERVICIOS</span></h2>
+                <h2>📋 DETALLES DE SERVICIOS</h2>
                 <div class="services-container" id="detalles-container">
                     <div class="service-item">
-                        <input type="text" class="service-description" value="Diseño de página web">
-                        <input type="number" class="service-price" value="0" step="0.01" aria-label="Precio del servicio">
+                        <input type="text" class="service-description" placeholder="Descripción del servicio">
+                        <input type="number" class="service-price" value="0" step="0.01" placeholder="Precio">
                         <div class="service-subtotal">$0.00</div>
-                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
-                    </div>
-                    <div class="service-item">
-                        <input type="text" class="service-description" value="Disponibilidad 24/7">
-                        <input type="number" class="service-price" value="0" step="0.01" aria-label="Precio del servicio">
-                        <div class="service-subtotal">$0.00</div>
-                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
-                    </div>
-                    <div class="service-item">
-                        <input type="text" class="service-description" value="Actualizaciones mensuales">
-                        <input type="number" class="service-price" value="0" step="0.01" aria-label="Precio del servicio">
-                        <div class="service-subtotal">$0.00</div>
-                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
+                        <button class="btn-remove">✕</button>
                     </div>
                 </div>
-                <button class="btn-add" id="btn-agregar">
-                    <span aria-hidden="true">➕</span> Agregar Servicio
-                </button>
+                <button class="btn-add" id="btn-agregar">➕ Agregar Servicio</button>
             </div>
             
             <div class="summary">
@@ -444,14 +127,12 @@
             </div>
             
             <div class="section">
-                <h2><span aria-hidden="true">💳</span> <span>FORMA DE PAGO</span></h2>
+                <h2>💳 FORMA DE PAGO</h2>
                 <div class="grid grid-2">
                     <div class="form-group">
                         <label for="formaPago">Método</label>
                         <select id="formaPago">
                             <option value="Transferencia bancaria">Transferencia bancaria</option>
-                            <option value="Tarjeta de crédito">Tarjeta de crédito</option>
-                            <option value="PayPal">PayPal</option>
                             <option value="Efectivo">Efectivo</option>
                         </select>
                     </div>
@@ -464,24 +145,11 @@
         </div>
         
         <div class="actions">
-            <button class="btn btn-primary" id="btn-recalcular">
-                <span aria-hidden="true">🧮</span> Recalcular
-            </button>
-            <button class="btn btn-success" id="btn-automatizar">
-                <span aria-hidden="true">⚡</span> Automatizar
-            </button>
-            <button class="btn btn-warning" id="btn-exportar">
-                <span aria-hidden="true">📄</span> Exportar TXT
-            </button>
-            <button class="btn btn-secondary" id="btn-whatsapp">
-                <span aria-hidden="true">📱</span> WhatsApp
-            </button>
-            <button class="btn btn-secondary" id="btn-gmail">
-                <span aria-hidden="true">📧</span> Gmail
-            </button>
+            <button class="btn btn-secondary" id="btn-whatsapp">📱 WhatsApp</button>
+            <button class="btn btn-primary" id="btn-gmail">📧 Gmail</button>
         </div>
         
-        <div class="status" id="estado" aria-live="polite"></div>
+        <div class="status" id="estado"></div>
     </div>
 
     <script>
@@ -496,7 +164,6 @@
                         'dominio': 25, 'ssl': 80, 'responsive': 200, 'ecommerce': 800,
                         'consultoría': 300, 'seo': 250, 'marketing': 350
                     };
-                    
                     this.init();
                 }
                 
@@ -509,9 +176,6 @@
                 
                 configurarEventos() {
                     document.getElementById('btn-agregar').addEventListener('click', () => this.agregarItem());
-                    document.getElementById('btn-recalcular').addEventListener('click', () => this.calcularTotal());
-                    document.getElementById('btn-automatizar').addEventListener('click', () => this.automatizar());
-                    document.getElementById('btn-exportar').addEventListener('click', () => this.exportarTXT());
                     document.getElementById('btn-whatsapp').addEventListener('click', () => this.enviarWhatsApp());
                     document.getElementById('btn-gmail').addEventListener('click', () => this.enviarGmail());
                     
@@ -535,8 +199,7 @@
                     const emisor = document.getElementById('emisor').value;
                     const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
                     const fecha = new Date().getFullYear();
-                    const id = `IDF-${fecha}-${random}`;
-                    document.getElementById('idEmisor').value = id;
+                    document.getElementById('idEmisor').value = `IDF-${fecha}-${random}`;
                 }
                 
                 actualizarFechas() {
@@ -560,8 +223,14 @@
                 calcularItem(elemento) {
                     const item = elemento.closest('.service-item');
                     const precio = parseFloat(item.querySelector('.service-price').value) || 0;
-                    const subtotal = precio;
+                    const descripcion = item.querySelector('.service-description').value.toLowerCase();
                     
+                    if (precio === 0 && descripcion.trim()) {
+                        const sugerido = this.sugerirPrecio(descripcion);
+                        item.querySelector('.service-price').value = sugerido;
+                    }
+                    
+                    const subtotal = precio;
                     item.querySelector('.service-subtotal').textContent = `$${subtotal.toFixed(2)}`;
                     this.calcularTotal();
                 }
@@ -580,8 +249,6 @@
                     document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
                     document.getElementById('impuestos').textContent = `$${impuestos.toFixed(2)}`;
                     document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-                    
-                    this.mostrarEstado(`Total calculado: $${total.toFixed(2)}`, 2000);
                 }
                 
                 sugerirPrecio(descripcion) {
@@ -607,13 +274,13 @@
                     const nuevoItem = document.createElement('div');
                     nuevoItem.className = 'service-item';
                     nuevoItem.innerHTML = `
-                        <input type="text" class="service-description" placeholder="Descripción del servicio">
-                        <input type="number" class="service-price" value="0" step="0.01" placeholder="Precio" aria-label="Precio del servicio">
+                        <input type="text" class="service-description" placeholder="Descripción">
+                        <input type="number" class="service-price" value="0" step="0.01" placeholder="Precio">
                         <div class="service-subtotal">$0.00</div>
-                        <button class="btn-remove" aria-label="Eliminar servicio">✕</button>
+                        <button class="btn-remove">✕</button>
                     `;
                     container.appendChild(nuevoItem);
-                    this.mostrarEstado('Nuevo servicio agregado');
+                    this.mostrarEstado('Servicio agregado');
                 }
                 
                 eliminarItem(boton) {
@@ -626,34 +293,19 @@
                     }
                 }
                 
-                automatizar() {
-                    document.querySelectorAll('.service-description').forEach(input => {
-                        const descripcion = input.value;
-                        if (descripcion.trim()) {
-                            const precioSugerido = this.sugerirPrecio(descripcion);
-                            const item = input.closest('.service-item');
-                            const campoPrecio = item.querySelector('.service-price');
-                            
-                            if (parseFloat(campoPrecio.value) === 0) {
-                                campoPrecio.value = precioSugerido;
-                                this.calcularItem(input);
-                            }
-                        }
-                    });
-                    
-                    this.actualizarFechas();
-                    this.mostrarEstado('Automatización completada ✓');
-                }
-                
                 obtenerDatosFactura() {
                     const items = [];
                     document.querySelectorAll('.service-item').forEach(item => {
                         const descripcion = item.querySelector('.service-description').value;
-                        const precio = item.querySelector('.service-price').value;
-                        const subtotal = item.querySelector('.service-subtotal').textContent;
+                        const precio = parseFloat(item.querySelector('.service-price').value) || 0;
+                        const subtotal = parseFloat(item.querySelector('.service-subtotal').textContent.replace('$', '')) || 0;
                         
                         if (descripcion.trim()) {
-                            items.push(`• ${descripcion} - Precio: $${precio} - Subtotal: ${subtotal}`);
+                            items.push({
+                                descripcion,
+                                precio,
+                                subtotal
+                            });
                         }
                     });
                     
@@ -674,108 +326,120 @@
                     };
                 }
                 
-                exportarTXT() {
-                    try {
-                        const datos = this.obtenerDatosFactura();
-                        const contenido = `FACTURA INTELIGENTE
-
-EMISOR
-Entidad: ${datos.emisor}
-ID: ${datos.id}
-
-CLIENTE
-Cliente: ${datos.cliente}
-Teléfono: ${datos.movil}
-Email: ${datos.gmail}
-
-PLAZO DE TIEMPO
-Inicio: ${datos.inicio}
-Vencimiento: ${datos.vencimiento}
-
-DETALLES
-${datos.detalles.join('\n')}
-
-RESUMEN FINANCIERO
-Subtotal: ${datos.subtotal}
-Impuestos: ${datos.impuestos}
-TOTAL: ${datos.total}
-
-FORMA DE PAGO
-${datos.formaPago}
-
-Fecha: ${datos.fecha}
-Generado automáticamente`;
-
-                        const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
-                        const url = URL.createObjectURL(blob);
-                        const enlace = document.createElement('a');
-                        
-                        enlace.href = url;
-                        enlace.download = `factura_${datos.emisor}_${datos.fecha.replace(/\//g, '-')}.txt`;
-                        document.body.appendChild(enlace);
-                        enlace.click();
-                        document.body.removeChild(enlace);
-                        URL.revokeObjectURL(url);
-                        
-                        this.mostrarEstado('Factura exportada como TXT ✓');
-                    } catch (error) {
-                        this.mostrarEstado('Error al exportar archivo');
+                validarDatosCliente() {
+                    const movil = document.getElementById('movil').value.trim();
+                    const gmail = document.getElementById('gmail').value.trim();
+                    const cliente = document.getElementById('cliente').value.trim();
+                    
+                    if (!cliente) {
+                        this.mostrarEstado('Por favor, ingrese el nombre del cliente');
+                        return false;
                     }
+                    
+                    return { movil, gmail, cliente };
                 }
                 
                 enviarWhatsApp() {
                     try {
-                        const datos = this.obtenerDatosFactura();
-                        const mensaje = `FACTURA ${datos.emisor}
-
-Cliente: ${datos.cliente}
-Total: ${datos.total}
-Fecha: ${datos.fecha}
-
-Para más detalles, exporte la factura completa.`;
+                        const datosCliente = this.validarDatosCliente();
+                        if (!datosCliente) return;
                         
-                        const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-                        window.open(url, '_blank');
-                        this.mostrarEstado('Abriendo WhatsApp...');
+                        const datos = this.obtenerDatosFactura();
+                        const mensaje = `*FACTURA ${datos.emisor}*
+
+*Cliente:* ${datos.cliente}
+*Total:* ${datos.total}
+*Fecha:* ${datos.fecha}
+*Método de pago:* ${datos.formaPago}
+
+*Detalles de servicios:*
+${datos.detalles.map(item => `• ${item.descripcion} - $${item.precio.toFixed(2)}`).join('\n')}
+
+*Resumen:*
+Subtotal: ${datos.subtotal}
+Impuestos: ${datos.impuestos}
+*TOTAL: ${datos.total}*
+
+ID Fiscal: ${datos.id}
+Periodo: ${datos.inicio} - ${datos.vencimiento}`;
+                        
+                        // Limpiar número de teléfono (eliminar espacios, signos +, etc.)
+                        const telefonoLimpio = datosCliente.movil.replace(/\s+/g, '').replace(/[^\d+]/g, '');
+                        
+                        if (!telefonoLimpio) {
+                            this.mostrarEstado('Ingrese un número de teléfono para enviar por WhatsApp');
+                            return;
+                        }
+                        
+                        window.open(`https://wa.me/${telefonoLimpio}?text=${encodeURIComponent(mensaje)}`, '_blank');
+                        this.mostrarEstado(`Enviando a WhatsApp de ${datosCliente.cliente}...`);
                     } catch (error) {
                         this.mostrarEstado('Error al abrir WhatsApp');
+                        console.error(error);
                     }
                 }
                 
                 enviarGmail() {
                     try {
-                        const datos = this.obtenerDatosFactura();
-                        const asunto = `Factura ${datos.emisor} - ${datos.total}`;
-                        const cuerpo = `Adjunto encontrará la factura detallada.
-
-Resumen:
-- Cliente: ${datos.cliente}
-- Total: ${datos.total}
-- Fecha: ${datos.fecha}
-- Método de pago: ${datos.formaPago}
-
-Saludos cordiales.`;
+                        const datosCliente = this.validarDatosCliente();
+                        if (!datosCliente) return;
                         
-                        const url = `mailto:?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
-                        window.location.href = url;
-                        this.mostrarEstado('Abriendo cliente de email...');
+                        const datos = this.obtenerDatosFactura();
+                        const asunto = `Factura ${datos.emisor} - ${datos.total} - ${datos.cliente}`;
+                        
+                        const cuerpo = `FACTURA DETALLADA
+
+EMISOR:
+Entidad: ${datos.emisor}
+ID Fiscal: ${datos.id}
+Fecha de factura: ${datos.fecha}
+
+CLIENTE:
+Nombre: ${datos.cliente}
+Teléfono: ${datos.movil}
+Email: ${datos.gmail}
+
+PERIODO DE SERVICIO:
+Inicio: ${datos.inicio}
+Vencimiento: ${datos.vencimiento}
+
+DETALLE DE SERVICIOS:
+${datos.detalles.map(item => `• ${item.descripcion}
+  Precio: $${item.precio.toFixed(2)}
+  Subtotal: $${item.subtotal.toFixed(2)}`).join('\n\n')}
+
+RESUMEN FINANCIERO:
+Subtotal: ${datos.subtotal}
+Impuestos: ${datos.impuestos}
+TOTAL: ${datos.total}
+
+INFORMACIÓN DE PAGO:
+Forma de pago: ${datos.formaPago}
+Fecha límite de pago: ${datos.vencimiento}
+
+---
+Este es un documento generado automáticamente.`;
+                        
+                        // Si hay email del cliente, lo usamos como destinatario
+                        const emailDestino = datosCliente.gmail || '';
+                        const mailtoLink = `mailto:${emailDestino}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+                        
+                        window.location.href = mailtoLink;
+                        this.mostrarEstado(`Abriendo email para ${datosCliente.cliente}...`);
                     } catch (error) {
-                        this.mostrarEstado('Error al abrir email');
+                        this.mostrarEstado('Error al abrir cliente de email');
+                        console.error(error);
                     }
                 }
                 
-                mostrarEstado(mensaje, tiempo = 3000) {
+                mostrarEstado(mensaje) {
                     const estado = document.getElementById('estado');
                     estado.textContent = mensaje;
-                    if (tiempo > 0) {
-                        setTimeout(() => {
-                            estado.textContent = '';
-                        }, tiempo);
-                    }
+                    setTimeout(() => { estado.textContent = ''; }, 3000);
                 }
             }
 
-            const factura = new FacturaInteligente();
+            new FacturaInteligente();
         });
     </script>
 </body>
